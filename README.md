@@ -21,6 +21,8 @@
   
 </div>
 
+<br>
+<br>
 
 ## Setup and Installation
 
@@ -33,6 +35,9 @@ npm install
 ```
 npm start
 ```
+
+<br>
+<br>
 
 # License
 
