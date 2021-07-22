@@ -20,3 +20,16 @@
 [![NodeJs](https://img.shields.io/badge/node.js-%2343853D.svg?style=for-the-badge&logo=node-dot-js&logoColor=white)](https://reactjs.org/docs/getting-started.html)
   
 </div>
+
+
+## Setup and Installation
+
+Run the following commands in the project directory to set up the project.
+
+```
+npm install
+```
+
+```
+npm start
+```
