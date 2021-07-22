@@ -36,4 +36,10 @@ npm start
 
 # License
 
+<div align="center">  
+<br>
+
 <img width=35% src="https://media0.giphy.com/media/3ornjXbo3cjqh2BIyY/200.gif"></p>
+
+<br>
+</div>
