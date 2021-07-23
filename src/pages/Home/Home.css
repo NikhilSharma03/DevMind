@@ -1,0 +1,10 @@
+.home__main{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+    padding-top: 5rem;
+    height: 90vh;
+    background: rgb(92,122,230);
+    background: linear-gradient(to bottom, #845EC2 2% , #D65DB1 , #FF6F91,#FF9671,#FFC75F,#ffffff );
+}
