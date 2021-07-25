@@ -1,10 +1,62 @@
-.home__main{
-    position: absolute;
-    top: 0;
-    width: 100%;
-    z-index: -1;
-    padding-top: 5rem;
-    height: 90vh;
-    background: rgb(92,122,230);
-    background: linear-gradient(to bottom, #845EC2 2% , #D65DB1 , #FF6F91,#FF9671,#FFC75F,#ffffff );
+.home__main {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: -1;
+  padding-top: 10rem;
+  min-height: 100vh;
+  background: rgb(92, 122, 230);
+  background: linear-gradient(
+    to bottom,
+    #7475f9 1%,
+    #7776f9 2%,
+    #6c75ea 30%,
+    #6a88ee 70%,
+    #6896f1 80%,
+    #77a3fa 95%,
+    #ffffff
+  );
+}
+
+.home__heading h1 {
+  padding: 3rem;
+  margin: 0 auto;
+  max-width: 100rem;
+  line-height: 6rem;
+  letter-spacing: 3px;
+  padding-top: 5rem;
+  text-align: center;
+  color: white;
+  text-transform: capitalize;
+  font-size: 4rem;
+}
+
+.home__head {
+  height: 90rem;
+}
+
+.home__heading p {
+  padding: 3rem;
+  padding-top: 1rem;
+  margin: 0 auto;
+  max-width: 80rem;
+  line-height: 4rem;
+  letter-spacing: 2px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.836);
+  font-weight: lighter;
+  font-weight: bold;
+  font-size: 1.75rem;
+}
+
+.home__image--container {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.home__image--container img {
+  width: 80%;
 }
