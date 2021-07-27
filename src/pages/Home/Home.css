@@ -1,8 +1,4 @@
 .home__main {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  z-index: -1;
   min-height: 100vh;
 }
 
