@@ -3,9 +3,8 @@
 <div align="center">  
 <br>
 
-<img width=100% src="https://github.com/NikhilSharma03/DevMind/blob/main/docs/docs.png"></p>
+<img width=90% src="https://github.com/NikhilSharma03/DevMind/blob/main/docs/docs.png"></p>
 
-<br>
 </div>
 
 <div align="center">  
@@ -15,7 +14,6 @@
 [![Build by Nikhil](https://img.shields.io/badge/Built%20by-Nikhil-Green)](https://github.com/NikhilSharma03/DevMind) 
 [![Maintenance](https://img.shields.io/maintenance/yes/2021)](https://github.com/NikhilSharma03/DevMind)
 
-<br>
 </div>
 
 ## Tech Stack
