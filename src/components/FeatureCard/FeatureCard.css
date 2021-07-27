@@ -1,0 +1,31 @@
+.home__feat--card {
+  flex: 1;
+  min-height: 33rem;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+}
+
+.home__feat--card h1 {
+  color: #222222;
+  font-size: 2rem;
+  margin-top: 3rem;
+}
+
+.home__feat--card p {
+  color: #504d4d;
+  font-size: 1.4rem;
+  margin-top: 3rem;
+  letter-spacing: 3px;
+  line-height: 30px;
+}
+
+/* #7d7bee */
+
+.home__feat--card:not(:last-child) {
+  margin-right: 6rem;
+}

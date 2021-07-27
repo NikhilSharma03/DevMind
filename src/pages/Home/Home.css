@@ -1,0 +1,102 @@
+.home__main {
+  min-height: 100vh;
+}
+
+.home__head {
+  background: rgb(92, 122, 230);
+  background: linear-gradient(
+    to bottom,
+    #7475f9 1%,
+    #7776f9 2%,
+    #6c75ea 30%,
+    #6a88ee 70%,
+    #6896f1 80%,
+    #77a3fa 95%,
+    #ffffff
+  );
+  height: 105rem;
+  padding-top: 10rem;
+}
+
+.home__heading h1 {
+  padding: 3rem;
+  margin: 0 auto;
+  max-width: 100rem;
+  line-height: 6rem;
+  letter-spacing: 3px;
+  padding-top: 5rem;
+  text-align: center;
+  color: white;
+  text-transform: capitalize;
+  font-size: 4rem;
+}
+
+.home__heading p {
+  padding: 3rem;
+  padding-top: 1rem;
+  margin: 0 auto;
+  max-width: 80rem;
+  line-height: 4rem;
+  letter-spacing: 2px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.836);
+  font-weight: lighter;
+  font-weight: bold;
+  font-size: 1.75rem;
+}
+
+.home__explore--btn {
+  margin: 3rem 0;
+  margin-bottom: 7rem;
+  display: block;
+  display: flex;
+  justify-content: center;
+}
+
+.home__explore--btn a {
+  font-size: 1.3rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #ffffff;
+  letter-spacing: 3px;
+  border-radius: 20px;
+  background: linear-gradient(to right bottom, #37c6f2, #47d2e3, #5ce8d3);
+  padding: 1.75rem 4rem;
+  transition: all 0.4s;
+}
+
+.home__explore--btn a:hover {
+  color: white;
+  background: linear-gradient(to right bottom, #36bae2, #3fbccc, #53d3c0);
+}
+
+.home__image--container {
+  width: 110rem;
+  margin: 0 auto;
+  margin-top: 5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.home__image--container img {
+  width: 80%;
+}
+
+/* ----------------------- Features --------------------------------- */
+.home__features {
+  padding-top: 27.5rem;
+}
+
+.home__features--head {
+  color: #53d3c0;
+  font-size: 2.5rem;
+  letter-spacing: 5px;
+  text-align: center;
+}
+
+.home__feat--card__container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 6.5rem 15rem;
+}

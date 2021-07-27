@@ -1,0 +1,26 @@
+.nav__list--li a {
+  display: inline-block;
+  padding: 1.5rem;
+  font-size: 1.3rem;
+  margin-right: 1.5rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #ffffff;
+  letter-spacing: 3px;
+  border-radius: 16px;
+}
+
+.nav__list--li a:hover {
+  color: #5ce8d3;
+}
+
+.nav__list--login a {
+  background: linear-gradient(to right bottom, #37c6f2, #47d2e3, #5ce8d3);
+  padding: 1.5rem 4rem;
+}
+
+.nav__list--login a:hover {
+  color: white;
+  background: linear-gradient(to right bottom, #36bae2, #3fbccc, #53d3c0);
+}

@@ -1,0 +1,25 @@
+.navbar__main {
+  background-color: transparent;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 4rem;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.navbar__title {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.navbar__title a {
+  text-decoration: none;
+  color: white;
+}
+
+.navbar__title span {
+  color: #5ce8d3;
+}
