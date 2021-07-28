@@ -16,7 +16,11 @@
 
 </div>
 
-<h1 align="center"> DevMind is a platform for developers to share ideas and thoughts with developers all over the world </h1>
+<br>
+
+<h1 align="center"> DevMind is a platform for developers 💻 to share ideas and thoughts with developers all over the world 🚀</h1>
+
+<br>
 
 ## Tech Stack
 
