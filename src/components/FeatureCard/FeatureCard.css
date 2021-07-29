@@ -32,7 +32,7 @@
 
 /* Media */
 
-@media (max-width: 981px) {
+@media (max-width: 1003px) {
   .home__feat--card {
     margin-bottom: 7.5rem;
   }

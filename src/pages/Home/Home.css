@@ -104,6 +104,13 @@
 
 /* Media */
 
+@media (min-width: 981px) {
+  .home__feat--card__container {
+    padding: 6.5rem 6rem;
+    justify-content: center;
+  }
+}
+
 @media (max-width: 981px) {
   .home__feat--card__container {
     padding: 6.5rem 10rem;
