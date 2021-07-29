@@ -1,12 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "./Footer.css";
 import NavItem from "./../NavItem/NavItem";
 
 function Footer() {
   return (
     <footer className="footer__container">
-      <h1 className="navbar__title">
+      <h1 className="footer__title">
         DEV<span>MIND</span>
       </h1>
       <ul className="nav__ul footer__ul">

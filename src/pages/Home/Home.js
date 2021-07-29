@@ -7,6 +7,8 @@ import FeatureCard from "./../../components/FeatureCard/FeatureCard";
 const Home = () => {
   return (
     <section className="home__main">
+      {/* <--Main Section--> */}
+
       <div className="home__head">
         <div className="home__heading">
           <h1>
@@ -24,7 +26,9 @@ const Home = () => {
           <img src={ImgSrc.homeBanner} alt="banner" />
         </figcaption>
       </div>
+
       {/* <--Features Section--> */}
+
       <div className="home__features">
         <h1 className="home__features--head">FEATURES</h1>
         <div className="home__feat--card__container">

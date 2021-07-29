@@ -1,5 +1,7 @@
 .home__feat--card {
   flex: 1;
+  min-width: 30rem;
+  max-width: 35rem;
   min-height: 33rem;
   padding: 3rem;
   display: flex;
@@ -24,8 +26,41 @@
   line-height: 30px;
 }
 
-/* #7d7bee */
-
 .home__feat--card:not(:last-child) {
   margin-right: 6rem;
+}
+
+/* Media */
+
+@media (max-width: 1003px) {
+  .home__feat--card {
+    margin-bottom: 7.5rem;
+  }
+}
+
+@media (max-width: 635px) {
+  .home__feat--card {
+    min-height: 42.5rem;
+    max-width: 40rem;
+    justify-content: center;
+  }
+  .home__feat--card:not(:last-child) {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 500px) {
+  .home__feat--card h1 {
+    font-size: 2.5rem;
+  }
+  .home__feat--card p {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 350px) {
+  .home__feat--card svg {
+    width: 55px;
+    height: 55px;
+  }
 }

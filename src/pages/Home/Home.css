@@ -72,7 +72,7 @@
 }
 
 .home__image--container {
-  width: 110rem;
+  max-width: 110rem;
   margin: 0 auto;
   margin-top: 5rem;
   display: flex;
@@ -83,7 +83,7 @@
   width: 80%;
 }
 
-/* ----------------------- Features --------------------------------- */
+/* ----------------------- Features Section --------------------------------- */
 .home__features {
   padding-top: 27.5rem;
 }
@@ -98,5 +98,94 @@
 .home__feat--card__container {
   display: flex;
   flex-wrap: wrap;
-  padding: 6.5rem 15rem;
+  justify-content: space-between;
+  padding: 6.5rem 4rem;
+}
+
+/* Media */
+
+@media (min-width: 981px) {
+  .home__feat--card__container {
+    padding: 6.5rem 6rem;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 981px) {
+  .home__feat--card__container {
+    padding: 6.5rem 10rem;
+    justify-content: center;
+    padding-bottom: 0;
+  }
+}
+
+@media (max-width: 800px) {
+  .home__feat--card__container {
+    padding: 6.5rem 4.5rem;
+  }
+}
+
+@media (max-width: 870px) {
+  .home__image--container {
+    margin-top: 10rem;
+  }
+  .home__features {
+    padding-top: 25rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .home__image--container {
+    margin-top: 12rem;
+  }
+  .home__features {
+    padding-top: 20rem;
+  }
+  .home__heading h1 {
+    padding: 3rem 4.5rem;
+    padding-top: 5rem;
+  }
+  .home__heading p {
+    padding: 3rem 4.5rem;
+    padding-top: 1rem;
+  }
+}
+
+@media (max-width: 635px) {
+  .home__feat--card__container {
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 0;
+  }
+}
+
+@media (max-width: 550px) {
+  .home__features {
+    padding-top: 15rem;
+  }
+  .home__heading h1 {
+    font-size: 3rem;
+  }
+  .home__heading p {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .home__image--container {
+    margin-top: 14rem;
+  }
+  .home__head {
+    height: 95rem;
+  }
+  .home__heading h1 {
+    font-size: 2.5rem;
+    line-height: 5rem;
+  }
+  .home__heading p {
+    font-size: 1.5rem;
+  }
+  .home__features {
+    padding-top: 19rem;
+  }
 }
