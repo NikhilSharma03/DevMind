@@ -17,14 +17,14 @@
   align-items: center;
 }
 
-.navbar__title {
+.footer__title {
   margin-top: 2rem;
   font-size: 3.5rem;
   letter-spacing: 10px;
   color: white;
 }
 
-.navbar__title span {
+.footer__title span {
   color: #5ce8d3;
 }
 
