@@ -23,3 +23,72 @@
 .navbar__title span {
   color: #5ce8d3;
 }
+
+#menu__toggle {
+  opacity: 0;
+}
+
+#menu__toggle:checked ~ .menu__btn > span {
+  transform: rotate(45deg);
+}
+#menu__toggle:checked ~ .menu__btn > span::before {
+  top: 0;
+  transform: rotate(0);
+}
+#menu__toggle:checked ~ .menu__btn > span::after {
+  top: 0;
+  transform: rotate(90deg);
+}
+#menu__toggle:checked ~ .menu__box {
+  visibility: visible;
+  left: 0;
+}
+
+.menu__btn {
+  width: 26px;
+  display: none;
+  height: 26px;
+  cursor: pointer;
+}
+
+.menu__btn > span {
+  display: block;
+  position: absolute;
+
+  width: 30px;
+  height: 2px;
+
+  background-color: #fff;
+
+  transition-duration: 0.25s;
+}
+.menu__btn > span::before,
+.menu__btn > span::after {
+  display: block;
+  position: absolute;
+
+  width: 100%;
+  height: 2px;
+
+  background-color: #fff;
+
+  transition-duration: 0.25s;
+}
+.menu__btn > span::before {
+  content: "";
+  top: -8px;
+}
+.menu__btn > span::after {
+  content: "";
+  top: 8px;
+}
+
+/* Media */
+@media (max-width: 800px) {
+  .navbar__nav {
+    display: none;
+  }
+  .menu__btn {
+    display: block;
+  }
+}

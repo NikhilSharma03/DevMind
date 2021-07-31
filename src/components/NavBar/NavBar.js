@@ -11,7 +11,12 @@ const NavBar = () => {
           DEV<span>MIND</span>
         </Link>
       </h1>
-      {/* <div>SD BTN</div> */}
+      <div class="hamburger-menu">
+        <input id="menu__toggle" type="checkbox" />
+        <label class="menu__btn" for="menu__toggle">
+          <span></span>
+        </label>
+      </div>
       <nav className="navbar__nav">
         <NavList />
       </nav>

@@ -1,6 +1,5 @@
 .nav__ul {
   display: flex;
-  display: none;
   list-style: none;
   align-items: center;
 }
