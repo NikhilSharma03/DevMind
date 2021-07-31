@@ -1,0 +1,27 @@
+.sidedrawer__container {
+  position: fixed;
+  display: none;
+  top: 0;
+  left: 0;
+  width: 75%;
+  height: 100vh;
+  transition: all 0.4s;
+  z-index: 100;
+  flex-direction: column;
+}
+
+.sidedrawer__profile {
+  flex: 1;
+  background: linear-gradient(to right bottom, #37c6f2, #47d2e3, #5ce8d3);
+}
+
+.sidedrawer__nav {
+  flex: 3;
+  background-color: rgb(241, 241, 241);
+}
+
+@media (max-width: 800px) {
+  .sidedrawer__container {
+    display: flex;
+  }
+}

@@ -28,26 +28,30 @@
   opacity: 0;
 }
 
-#menu__toggle:checked ~ .menu__btn > span {
+.menu__btn > span.active {
   transform: rotate(45deg);
 }
-#menu__toggle:checked ~ .menu__btn > span::before {
+.menu__btn > span.active::before {
   top: 0;
   transform: rotate(0);
 }
-#menu__toggle:checked ~ .menu__btn > span::after {
+.menu__btn > span.active::after {
   top: 0;
   transform: rotate(90deg);
 }
-#menu__toggle:checked ~ .menu__box {
+.menu__box {
   visibility: visible;
   left: 0;
 }
 
+.hamburger-menu {
+  transform: translateX(7.5px);
+}
+
 .menu__btn {
-  width: 26px;
+  width: 25px;
   display: none;
-  height: 26px;
+  height: 25px;
   cursor: pointer;
 }
 
@@ -55,7 +59,7 @@
   display: block;
   position: absolute;
 
-  width: 30px;
+  width: 28px;
   height: 2px;
 
   background-color: #fff;
