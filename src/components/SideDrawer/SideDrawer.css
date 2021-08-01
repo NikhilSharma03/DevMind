@@ -8,20 +8,114 @@
   transition: all 0.4s;
   z-index: 100;
   flex-direction: column;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.4);
 }
 
 .sidedrawer__profile {
   flex: 1;
-  background: linear-gradient(to right bottom, #37c6f2, #47d2e3, #5ce8d3);
+  background: linear-gradient(
+    to right,
+    #6c75ea 10%,
+    #6a88ee 70%,
+    #6896f1 90%,
+    #77a3fa 100%
+  );
+}
+
+.sd__profile--imgcont {
+  padding: 2rem;
+  overflow: hidden;
+  max-width: 25rem;
+  height: 25rem;
+  border-radius: 50%;
+}
+
+.sd__profile--imgcont img {
+  box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.4);
+  border-radius: 50%;
+  height: 100%;
+  border: 1px solid white;
+  width: 100%;
+  object-fit: cover;
+}
+
+.sidedrawer__profile h1,
+.sidedrawer__profile p {
+  color: #f1f1f1;
+  margin-bottom: 1.5rem;
+  padding: 0 2rem;
+  letter-spacing: 2px;
+}
+
+.sidedrawer__profile h1 {
+  font-size: 2.5rem;
+}
+
+.sidedrawer__profile p {
+  font-size: 2rem;
+  font-weight: bold;
 }
 
 .sidedrawer__nav {
   flex: 3;
-  background-color: rgb(241, 241, 241);
+  background-color: #f1f1f1;
+}
+
+.sidedrawer__nav ul {
+  margin-top: 2rem;
+  padding: 0 2rem;
+  list-style: none;
+}
+
+.sidedrawer__nav a {
+  color: #141414d7;
+  padding: 1.5rem 1.5rem;
+  /* text-align: center; */
+  width: 100%;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.sidedrawer__nav a:active {
+  background: linear-gradient(
+    to right,
+    #6c75ea 50%,
+    #6a88ee 70%,
+    #6896f1 90%,
+    #77a3fa 100%
+  );
+  color: white !important;
+}
+
+.sidedrawer__nav a:hover {
+  color: inherit;
+}
+
+.sidedrawer__nav a img {
+  width: 25px;
+  height: 25px;
+  margin-right: 20px;
+  object-fit: cover;
 }
 
 @media (max-width: 800px) {
   .sidedrawer__container {
     display: flex;
+  }
+}
+
+@media (max-width: 340px) {
+  .sidedrawer__nav a {
+    font-size: 1.5rem;
+  }
+  .sd__profile--imgcont {
+    padding: 2rem;
+    overflow: hidden;
+    max-width: 20rem;
+    height: 20rem;
+    border-radius: 50%;
   }
 }
