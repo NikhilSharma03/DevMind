@@ -13,7 +13,7 @@ function SideDrawer(props) {
     >
       <div className="sidedrawer__profile">
         <figcaption className="sd__profile--imgcont">
-          <img src={demo} alt="profile" />
+          <img alt="profile" />
         </figcaption>
         <h1>Name</h1>
         <p>Posts</p>
