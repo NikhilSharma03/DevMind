@@ -1,7 +1,7 @@
 import React from "react";
 import "./SideDrawer.css";
 import NavItem from "./../NavItem/NavItem";
-import demo from "./../../IMG_20210111_154928.jpg";
+import ImageSource from "./../../shared/ImageSource";
 
 function SideDrawer(props) {
   return (
@@ -21,19 +21,19 @@ function SideDrawer(props) {
       <nav className="sidedrawer__nav">
         <ul onClick={props.toggleSD} className="sd__nav--ul">
           <NavItem href="/feed">
-            <img src="https://library.kissclipart.com/20181003/ljw/kissclipart-newspaper-symbol-clipart-web-feed-computer-icons-c-1a86e09e4c082e0e.png" />
+            <img src={ImageSource.sdFeed} alt="icons" />
             Feed
           </NavItem>
           <NavItem href="/create_post">
-            <img src="https://library.kissclipart.com/20181003/ljw/kissclipart-newspaper-symbol-clipart-web-feed-computer-icons-c-1a86e09e4c082e0e.png" />
+            <img src={} alt="icons" />
             Create
           </NavItem>
           <NavItem href="/create_post">
-            <img src="https://library.kissclipart.com/20181003/ljw/kissclipart-newspaper-symbol-clipart-web-feed-computer-icons-c-1a86e09e4c082e0e.png" />
+            <img src={} alt="icons" />
             About
           </NavItem>
           <NavItem href="/my_profile">
-            <img src="https://library.kissclipart.com/20181003/ljw/kissclipart-newspaper-symbol-clipart-web-feed-computer-icons-c-1a86e09e4c082e0e.png" />
+            <img src={} alt="icons" />
             Profile
           </NavItem>
         </ul>
