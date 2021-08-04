@@ -35,8 +35,9 @@
 .footer__ul a {
   margin-right: 5rem;
   padding: 1rem 2rem;
-  background-color: #50c9b7;
   transition: all 0.4s;
+  border-bottom: 2px solid #50c9b7;
+  border-radius: 0;
 }
 
 .footer__ul a:hover {
