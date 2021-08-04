@@ -25,3 +25,10 @@
 .inputfield__container input:focus {
   border-bottom-color: #7475f9;
 }
+
+@media (max-width: 375px) {
+  .inputfield__container input {
+    padding: 0.75rem;
+    font-size: 1.75rem;
+  }
+}

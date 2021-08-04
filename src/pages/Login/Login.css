@@ -1,7 +1,10 @@
 .login__container {
-  min-height: 90vh;
+  min-height: 80vh;
   padding: 5rem;
   padding-top: 15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .form__banner {
@@ -88,4 +91,29 @@
 
 .toggle__container a:hover {
   transform: scale(1.05);
+}
+
+@media (max-width: 700px) {
+  .forgot__container a {
+    font-size: 1.25rem;
+  }
+  .toggle__container p {
+    font-size: 1.25rem;
+  }
+  .toggle__container a {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 450px) {
+  .login__container {
+    padding: 10rem 2rem;
+    padding-top: 20rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .form__body {
+    padding: 4rem 2.5rem;
+  }
 }
