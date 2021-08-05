@@ -32,9 +32,9 @@ const SignUp = () => {
           />
           <div className="signup--image__picker">
             <p>Not Uploaded</p>
-            <label htmlFor="sign__image--picker">Upload Image</label>
+            <label htmlFor="sign__image--picker">Upload Profile Image</label>
             <input
-              type="input"
+              type="file"
               id="sign__image--picker"
               style={{ display: "none" }}
               accept=".jpg,.png,.jpeg"

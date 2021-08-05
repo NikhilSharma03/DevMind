@@ -93,6 +93,38 @@
   transform: scale(1.05);
 }
 
+.signup--image__picker {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  padding: 0.75rem 1rem;
+  align-items: center;
+}
+
+.signup--image__picker p,
+.signup--image__picker label {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.25rem;
+  color: #747474;
+  padding: 10px;
+  border: 1px solid #747474;
+  border-radius: 4px;
+}
+
+.signup--image__picker label {
+  color: white;
+  cursor: pointer;
+  color: #7475f9;
+  border: 1px solid #7475f9;
+  transition: all 0.4s;
+}
+
+.signup--image__picker label:hover {
+  background-color: #5959ff;
+  color: white;
+}
+
 @media (max-width: 700px) {
   .forgot__container a {
     font-size: 1.25rem;
@@ -115,5 +147,23 @@
 @media (max-width: 375px) {
   .form__body {
     padding: 4rem 2.5rem;
+  }
+  .signup--image__picker {
+    padding: 0.75rem 0;
+  }
+}
+
+@media (max-width: 310px) {
+  .signup--image__picker {
+    flex-direction: column;
+  }
+
+  .signup--image__picker p,
+  .signup--image__picker label {
+    width: 100%;
+  }
+
+  .signup--image__picker p {
+    margin-bottom: 1.5rem;
   }
 }
