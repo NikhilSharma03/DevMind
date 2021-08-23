@@ -1,12 +1,12 @@
-import React from 'react'
-import "./Form.css"
+import React from "react";
+import "./Form.css";
 
 function Form(props) {
-    return (
-        <form className="form">
-            {props.children}
-        </form>
-    )
+  return (
+    <form style={{ ...props.style }} className="form">
+      {props.children}
+    </form>
+  );
 }
 
-export default Form
+export default Form;
