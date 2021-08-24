@@ -18,7 +18,7 @@
 
 <br>
 
-<h3 align="center"> 🌟 DevMind is a platform for developers 💻 to share ideas and thoughts with developers all over the world 🚀</h3>
+<h3 align="center"> 🌟 DevMind is a social media platform for developers 💻 to share ideas and thoughts with developers all over the world 🚀</h3>
 
 <br>
 
