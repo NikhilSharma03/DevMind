@@ -21,12 +21,12 @@ const PostCard = () => {
         </figcaption>
       </div>
       <div className="postcard__container--actionbtns">
-        <div>
-          <SvgSrc.Heart /> 
+        <div className="postcard__actionbtns--main">
+          <SvgSrc.Heart />
           <span>3</span>
         </div>
-        <div>
-          <SvgSrc.Comment /> 
+        <div className="postcard__actionbtns--main">
+          <SvgSrc.Comment />
           <span>3</span>
         </div>
       </div>
