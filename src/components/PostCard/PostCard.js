@@ -1,6 +1,7 @@
 import React from "react";
 import "./PostCard.css";
 import Src from "./../../shared/ImageSource";
+import SvgSrc from "./../../shared/SvgSrc";
 
 const PostCard = () => {
   return (
@@ -21,10 +22,12 @@ const PostCard = () => {
       </div>
       <div className="postcard__container--actionbtns">
         <div>
-          <label>Like (3)</label>
+          <SvgSrc.Heart /> 
+          <span>3</span>
         </div>
         <div>
-          <label>Comment (2)</label>
+          <SvgSrc.Comment /> 
+          <span>3</span>
         </div>
       </div>
     </div>
