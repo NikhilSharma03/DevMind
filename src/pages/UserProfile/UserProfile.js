@@ -16,7 +16,30 @@ const UserProfile = () => {
         <button className="userprofile__header--btn">Edit Button</button>
       </div>
       <div className="userprofile__main">
-        <div className="userprofile__info">User Info</div>
+        <div className="userprofile__info">
+          <div className="userprofile__info--container">
+            <h1>Bio</h1>
+            <p>
+              asdsandknsdflsafklsalgsalglsagklasdasdsandknsdflsafklsalgsalglsagklasdasdsandknsdflsafklsalgsalglsagklasd
+              asdsandknsdflsafklsalgsalglsagklasdasdsandknsdflsafklsalgsalglsagklasdasdsandknsdflsafklsalgsalglsagklasd
+            </p>
+          </div>
+
+          <div className="userprofile__info--container">
+            <h1>Email</h1>
+            <p>
+              asdsandknsdflsafklsalgsalglsagklasdasdsandknsdflsafklsalgsalglsagklasdasdsandknsdflsafklsalgsalglsagklasd
+            </p>
+          </div>
+
+          <div className="userprofile__info--container">
+            <h1>Interest</h1>
+            <p>
+              asdsandknsdflsafklsalgsalglsagklasdasdsandknsdflsafklsalgsalglsagklasdasdsandknsdflsafklsalgsalglsagklasd
+            </p>
+          </div>
+        </div>
+
         <div className="userprofile__posts">
           <PostCard />
           <PostCard />
