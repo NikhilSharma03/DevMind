@@ -6,7 +6,7 @@ import ImageSource from "./../../shared/ImageSource";
 const AddPost = () => {
   return (
     <div className="addpost__container">
-      <Form style={{ width: "45rem" }}>
+      <Form style={{ width: "55rem" }}>
         <div className="form__banner">
           <h1>Add Post</h1>
         </div>
