@@ -16,7 +16,10 @@
     font-weight: bold;    
 }
 
-.feed__container .postcard__container{
-   width: 60rem;
-   margin-bottom: 10rem;
+/* Media Queries */
+
+@media(max-width: 550px){
+    .feed__container{
+        padding: 0 2rem;
+    }
 }
