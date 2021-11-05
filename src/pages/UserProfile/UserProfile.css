@@ -1,5 +1,5 @@
 .userprofile__container {
-  min-height: 80vh;
+  height: 80vh;
   padding: 2rem 10rem;
   padding-top: 13rem;
 }
@@ -67,10 +67,10 @@
 .userprofile__main {
   display: flex;
   width: 100%;
+  height: 80%;
 }
 
 .userprofile__info {
-  height: 50rem;
   flex: 1;
   width: 33%;
   border-radius: 5px;
@@ -80,7 +80,6 @@
 }
 
 .userprofile__posts {
-  height: 50rem;
   overflow-y: scroll;
   padding: 0 1rem;
   flex: 2;
@@ -143,4 +142,40 @@
     #77a3fa 100%
   );
   border-radius: 50px;
+}
+
+
+/* Media Queries */
+
+@media(max-width: 1150px) {
+  .userprofile__container{
+    padding: 2rem 3rem;
+    padding-top: 13rem;
+  }
+}
+
+@media(max-width: 950px) {
+  .userprofile__main{
+    flex-direction: column;
+  }
+  .userprofile__info{
+    width: 100%;
+    margin-bottom: 5rem;
+    overflow-y: unset;
+  }
+  .userprofile__posts{
+    padding-left: 0;
+    padding-right: 0;
+    overflow-y: unset;
+  }
+  .userprofile__container{
+    height: fit-content;
+  }
+}
+
+@media(max-width: 475px){
+  .userprofile__container{
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 }
