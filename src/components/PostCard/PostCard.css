@@ -5,8 +5,9 @@
   margin-bottom: 5rem;
 }
 
-.postcard__container--username {
+.postcard__container--topbar {
   display: flex;
+  justify-content: space-between;
   background: linear-gradient(
     to right,
     #7475f9 40%,
@@ -16,10 +17,19 @@
     #6896f1 90%,
     #77a3fa 100%
   );
+  border-bottom: 2px solid #eeeeee;
+  color: #fff;
+  align-items: center;
+}
+
+.postcard__container--topbar__delete {
+  margin-right: 1.25rem;
+}
+
+.postcard__container--username {
+  display: flex;
   align-items: center;
   padding: 1.5rem 2.5rem;
-  color: #fff;
-  border-bottom: 2px solid #eeeeee;
 }
 
 .postcard__username--image {

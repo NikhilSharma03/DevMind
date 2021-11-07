@@ -6,11 +6,16 @@ import SvgSrc from "./../../shared/SvgSrc";
 const PostCard = () => {
   return (
     <div className="postcard__container">
-      <div className="postcard__container--username">
-        <figcaption className="postcard__username--image">
-          <img src={Src.sdProfile} alt="Post Image" />
-        </figcaption>
-        <h1>UserName</h1>
+      <div className="postcard__container--topbar">
+        <div className="postcard__container--username">
+          <figcaption className="postcard__username--image">
+            <img src={Src.sdProfile} alt="Post Image" />
+          </figcaption>
+          <h1>UserName</h1>
+        </div>
+        <div className="postcard__container--topbar__delete">
+          <SvgSrc.Delete />
+        </div>
       </div>
       <div className="postcard__container--content">
         <p className="postcard__content--para">
