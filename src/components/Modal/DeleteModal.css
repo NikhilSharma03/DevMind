@@ -1,0 +1,90 @@
+.delete__modal {
+  z-index: 9999;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50rem;
+  border-radius: 5px;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s;
+  overflow: hidden;
+}
+
+.delete__modal--head {
+  background: linear-gradient(
+    to right,
+    #7475f9 40%,
+    #7776f9 45%,
+    #6c75ea 50%,
+    #6a88ee 70%,
+    #6896f1 90%,
+    #77a3fa 100%
+  );
+  padding: 1.5rem 1rem;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.delete__modal--para {
+  padding: 3rem 1rem;
+  text-align: center;
+  color: #777;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.delete__modal--btn__container {
+  padding: 2rem 3rem;
+  padding-top: 0;
+  display: flex;
+}
+
+.delete__modal--btn__container button {
+  display: block;
+  padding: 0.8rem;
+  font-weight: bold;
+  border-radius: 5px;
+  background-color: white;
+  cursor: pointer;
+  width: 100%;
+}
+
+.delete__modal--btn__container button:first-of-type {
+  background: #6896f1;
+  color: white;
+  margin-right: 10px;
+  border: 2px solid #6896f1;
+}
+
+.delete__modal--btn__container button:last-of-type {
+  color: #6896f1;
+  border: 2px solid #6896f1;
+}
+
+.delete__modal.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.delete__modal__bg {
+  z-index: 9998;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s;
+}
+
+.delete__modal__bg.open {
+  opacity: 1;
+  visibility: visible;
+}

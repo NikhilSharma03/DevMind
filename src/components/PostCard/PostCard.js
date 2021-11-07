@@ -1,11 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import "./PostCard.css";
 import Src from "./../../shared/ImageSource";
 import SvgSrc from "./../../shared/SvgSrc";
+import DeleteModal from './../Modal/DeleteModal'
 
 const PostCard = () => {
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+
+  const scrollToTop = () =>{
+    window.scrollTo({
+      top: 0, 
+      behavior: 'smooth'
+    });
+  };
+
+  const onDeleteHandler = () => {
+    scrollToTop()
+    setShowDeleteModal(true)
+  }
+
+
   return (
     <div className="postcard__container">
+      <DeleteModal showModal={showDeleteModal} onClose={() => setShowDeleteModal(false)}/>
       <div className="postcard__container--topbar">
         <div className="postcard__container--username">
           <figcaption className="postcard__username--image">
@@ -13,8 +30,8 @@ const PostCard = () => {
           </figcaption>
           <h1>UserName</h1>
         </div>
-        <div className="postcard__container--topbar__delete">
-          <SvgSrc.Delete />
+        <div className="postcard__container--topbar__delete" onClick={onDeleteHandler}>
+          <SvgSrc.Delete/>
         </div>
       </div>
       <div className="postcard__container--content">
