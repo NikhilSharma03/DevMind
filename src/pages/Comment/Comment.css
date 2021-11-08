@@ -1,0 +1,78 @@
+.comment__container {
+  padding: 15rem 2rem 5rem 2rem;
+  min-height: 80vh;
+}
+
+.comment__main {
+  width: 70rem;
+  margin: 0 auto;
+}
+
+.comment__main .postcard__container {
+  margin-bottom: 0;
+}
+
+.comment__box {
+  padding: 2rem 1rem;
+  box-shadow: 0 0.2rem 0.5rem rgb(0 0 0 / 20%);
+}
+
+.comment__field {
+  padding: 1rem;
+}
+
+.comment__field input {
+  width: 100%;
+  margin-bottom: 1.5rem;
+  padding: 1rem 1rem;
+  outline: none;
+  font-family: inherit;
+}
+
+.comment__field button {
+  width: 100%;
+  padding: 1rem 0.75rem;
+  color: white;
+  background: linear-gradient(
+    to right,
+    #7475f9 40%,
+    #7776f9 45%,
+    #6c75ea 50%,
+    #6a88ee 70%,
+    #6896f1 90%,
+    #77a3fa 100%
+  );
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.comment__list {
+  padding: 2rem 1rem;
+  padding-bottom: 0;
+  border-top: 2px solid #fdfdfd;
+}
+
+.comment__list div:last-of-type {
+  margin-bottom: 0;
+}
+
+.comment {
+  margin-bottom: 3rem;
+  padding: 1.5rem;
+  background: rgb(241, 241, 241);
+}
+
+.comment p {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  color: #222;
+  word-break: break-all;
+  line-height: 1.5;
+}
+
+.comment__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
