@@ -3,7 +3,7 @@
 <div align="center">  
 <br>
 
-<img width=100% src="https://github.com/NikhilSharma03/DevMind/blob/main/docs/docs.png"></p>
+<img width=100% src="https://github.com/NikhilSharma03/DevMind/blob/main/assets/docs.png"></p>
 
 </div>
 
