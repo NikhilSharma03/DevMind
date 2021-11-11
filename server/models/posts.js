@@ -8,4 +8,15 @@ const postSchema = new Schema({
     createdAt: {type: Date, required: true, default: Date.now()}
 })
 
+// Methods
+postSchema.statics.findPostByPostID = async function (postID) {
+    const data = await this.findById(postID)
+    return data
+}
+
+postSchema.statics.findPostByUserID = async function (userID) {
+    const data = await this.find({creator: userID})
+    return data
+}
+
 module.exports = model("Posts", postSchema)
