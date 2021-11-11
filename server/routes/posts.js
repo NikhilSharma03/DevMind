@@ -5,7 +5,7 @@ const postsController = require("./../controllers/posts")
 
 // Method handlers
 router.get("/", postsController.getPosts)
-
+router.post("/", postsController.createPost)
 
 
 module.exports = router
