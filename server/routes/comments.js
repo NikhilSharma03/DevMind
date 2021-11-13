@@ -4,6 +4,7 @@ const router = express.Router()
 const commentsController = require("./../controllers/comments")
 
 // Method handlers
+router.get("/:postID", commentsController.getCommentsByPostID)
 
 
 module.exports = router

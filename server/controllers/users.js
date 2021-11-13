@@ -9,7 +9,7 @@ exports.getUserByID = async (req, res) => {
         return res.status(404).json({message:"the provided id is invalid"})
     }
 
-    const user = await User.findById(userID)
+    const user = await User.findById(userID).populate("posts")
 
     if (!user) {
         return res.status(404).json({message:"No user exists with provided id!"})
@@ -44,13 +44,16 @@ exports.signUp = async (req, res) => {
         return res.status(500).json({message:"Something went wrong", error: err.message})
     }
 
+    delete newUser.password
+
+
     res.status(201).json({message: "Created Successfully", user: newUser})
 }
 
 exports.login = async (req, res) => {
     const { email, password } = req.body
 
-    const user = await User.findOne({email})
+    const user = await User.findOne({email}).populate("posts")
 
     if (!user) {
         return res.status(404).json({message:"No user exists with provided email!"})
@@ -68,7 +71,9 @@ exports.login = async (req, res) => {
         return res.status(401).json({message:"Invalid Password"})
     }
 
-    res.status(200).json({message: "Login Successfully"})
+    delete user.password
+
+    res.status(200).json({message: "Login Successfully", user})
 }
 
 exports.updateUserByID = async (req, res) => {
