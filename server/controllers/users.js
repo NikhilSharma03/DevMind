@@ -1,5 +1,6 @@
 const { isValidObjectId } = require("mongoose")
 const User = require("./../models/users")
+const bcrypt = require('bcryptjs');
 
 exports.getUserByID = async (req, res) => {
     const userID = req.params.userID
@@ -20,10 +21,18 @@ exports.getUserByID = async (req, res) => {
 exports.signUp = async (req, res) => {
     const { username, email, password, bio, profileImage } = req.body
 
+    let hashedPassword;
+
+    try{
+        hashedPassword= await bcrypt.hash(password, 12)
+    } catch (err){
+        return res.status(500).json({message:"Something went wrong", error: err.message})
+    }
+
     const newUser = new User({
         username,
         email,
-        password,
+        password : hashedPassword,
         bio,
         profileImage,
         posts: []
@@ -47,7 +56,15 @@ exports.login = async (req, res) => {
         return res.status(404).json({message:"No user exists with provided email!"})
     }
 
-    if(user.password !== password){
+    let isPasswordCorrect;
+
+    try{
+        isPasswordCorrect = await bcrypt.compare(password, user.password)
+    } catch (err){
+        return res.status(500).json({message:"Something went wrong", error: err.message})
+    }
+
+    if(!isPasswordCorrect){
         return res.status(401).json({message:"Invalid Password"})
     }
 
