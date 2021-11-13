@@ -108,8 +108,12 @@ exports.deletePostByPostID = async (req,res) => {
         return res.status(404).json({message:"No post found with provided ID"})
     }
 
+    const user = await User.findById(post.creator)
+    user.posts = user.posts.filter(id => id.toString() != post._id.toString())
+
     try{
         await post.remove()
+        await user.save()
     } catch (err) {
         return res.status(500).json({message: "Something went wrong", error: err.message})
     }
