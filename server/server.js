@@ -9,10 +9,11 @@ app.use(bodyParser.json())
 
 // Routers
 const postRoutes = require("./routes/posts")
+const userRoutes = require("./routes/users")
 
 // Routes
 app.use("/api/posts", postRoutes)
-
+app.use("/api/users", userRoutes)
 
 // Db connection
 mongoose.connect(process.env.MONGO_DB_URL).then(() => {
