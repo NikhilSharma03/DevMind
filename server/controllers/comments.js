@@ -48,6 +48,38 @@ exports.postCommentByPostID = async (req, res) => {
     res.json({post})
 }
 
+exports.updateCommentByCommentID = async (req, res) => {
+    const {content} = req.body
+    let postID = req.params.postID, commentID = req.params.commentID;
+    let isObjectID = isValidObjectId(postID)
+    if (!isObjectID) {
+        return res.status(404).json({message:"the provided id is invalid"})
+    }
+    isObjectID = isValidObjectId(commentID)
+    if (!isObjectID) {
+        return res.status(404).json({message:"the provided id is invalid"})
+    }
+
+    const post = await Post.findById(postID).populate("creator", "username email")
+    if(!post) {
+        return res.status(404).json({message: "No post found"})
+    }
+    const foundComment = post.comments.find(item => item._id.toString() === commentID)
+    if(!foundComment){
+        return res.status(404).json({message: "No comment found"})
+    }
+
+    foundComment.content = content
+
+    try {
+        await post.save()
+    } catch (error){
+        return res.status(500).json({message: error.message})
+    }
+
+    res.json({post})
+}
+
 exports.deleteCommentByCommentID = async (req, res) => {
     let postID = req.params.postID, commentID = req.params.commentID;
     let isObjectID = isValidObjectId(postID)
