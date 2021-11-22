@@ -1,6 +1,7 @@
 const Post = require("./../models/posts")
 const User = require("./../models/users")
 const { isValidObjectId } = require("mongoose")
+const { jwtVerification } = require("./../handlers/jwtVerify")
 
 exports.getCommentsByPostID = async (req,res) => {
     const postID = req.params.postID
@@ -23,7 +24,14 @@ exports.postCommentByPostID = async (req, res) => {
     if (!isObjectID) {
         return res.status(404).json({message:"the provided id is invalid"})
     }
-    const post = await Post.findById(postID).populate("creator", "username email")
+    const post = await Post.findById(postID).populate("creator", "username email _id")
+
+    // JWT Verification
+    let isUserVerified = jwtVerification(req, res, post.creator.email, post.creator._id)
+    if(!isUserVerified) {
+        return res.status(403).json({message: "Unauthorized User"})  
+    }
+
     if(!post) {
         return res.status(404).json({message: "No post found"})
     }
@@ -60,10 +68,17 @@ exports.updateCommentByCommentID = async (req, res) => {
         return res.status(404).json({message:"the provided id is invalid"})
     }
 
-    const post = await Post.findById(postID).populate("creator", "username email")
+    const post = await Post.findById(postID).populate("creator", "username email _id")
     if(!post) {
         return res.status(404).json({message: "No post found"})
     }
+
+    // JWT Verification
+    let isUserVerified = jwtVerification(req, res, post.creator.email, post.creator._id)
+    if(!isUserVerified) {
+        return res.status(403).json({message: "Unauthorized User"})  
+    }
+
     const foundComment = post.comments.find(item => item._id.toString() === commentID)
     if(!foundComment){
         return res.status(404).json({message: "No comment found"})
@@ -91,9 +106,15 @@ exports.deleteCommentByCommentID = async (req, res) => {
         return res.status(404).json({message:"the provided id is invalid"})
     }
 
-    const post = await Post.findById(postID).populate("creator", "username email")
+    const post = await Post.findById(postID).populate("creator", "username email _id")
     if(!post) {
         return res.status(404).json({message: "No post found"})
+    }
+
+    // JWT Verification
+    let isUserVerified = jwtVerification(req, res, post.creator.email, post.creator._id)
+    if(!isUserVerified) {
+        return res.status(403).json({message: "Unauthorized User"})  
     }
 
     post.comments = post.comments.filter(id => id._id.toString() != commentID)
