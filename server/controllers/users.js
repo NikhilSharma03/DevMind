@@ -1,6 +1,7 @@
 const { isValidObjectId } = require("mongoose")
 const User = require("./../models/users")
 const bcrypt = require('bcryptjs');
+const jwt = require("jsonwebtoken")
 
 exports.getUserByID = async (req, res) => {
     const userID = req.params.userID
@@ -44,10 +45,10 @@ exports.signUp = async (req, res) => {
         return res.status(500).json({message:"Something went wrong", error: err.message})
     }
 
-    delete newUser.password
+    // jwt TOKEN
+    let jwtToken = jwt.sign({userID: newUser._id, email: newUser.email}, process.env.JWT_SECRET_KEY, { expiresIn: '1h'})
 
-
-    res.status(201).json({message: "Created Successfully", user: newUser})
+    res.status(201).json({message: "Created Successfully", user: newUser, token: jwtToken})
 }
 
 exports.login = async (req, res) => {
@@ -73,7 +74,10 @@ exports.login = async (req, res) => {
 
     delete user.password
 
-    res.status(200).json({message: "Login Successfully", user})
+    // jwt TOKEN
+    let jwtToken = jwt.sign({userID: user._id, email: user.email}, process.env.JWT_SECRET_KEY, { expiresIn: '1h'})
+
+    res.status(200).json({message: "Login Successfully", user, token: jwtToken})
 }
 
 exports.updateUserByID = async (req, res) => {
