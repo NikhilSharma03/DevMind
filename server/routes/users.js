@@ -10,9 +10,9 @@ router.get("/:userID", usersController.getUserByID)
 router.post("/signup", usersController.signUp)
 router.post("/login", usersController.login)
 
-router.patch("/:userID", usersController.updateUserByID)
+router.patch("/:userID", JWTAuthMiddleware, usersController.updateUserByID)
 
-router.delete("/:userID", JWTAuthMiddleware,usersController.deleteUserByID)
+router.delete("/:userID", JWTAuthMiddleware, usersController.deleteUserByID)
 
 
 module.exports = router
