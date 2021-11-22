@@ -2,15 +2,16 @@ const express = require("express")
 const router = express.Router()
 // Post controllers
 const commentsController = require("./../controllers/comments")
+const JWTAuthMiddleware = require("./../middlewares/jwt_auth")
 
 // Method handlers
 router.get("/:postID", commentsController.getCommentsByPostID)
 
-router.post("/:postID", commentsController.postCommentByPostID)
+router.post("/:postID", JWTAuthMiddleware, commentsController.postCommentByPostID)
 
-router.patch("/:postID/:commentID", commentsController.updateCommentByCommentID)
+router.patch("/:postID/:commentID", JWTAuthMiddleware, commentsController.updateCommentByCommentID)
 
-router.delete("/:postID/:commentID", commentsController.deleteCommentByCommentID)
+router.delete("/:postID/:commentID", JWTAuthMiddleware, commentsController.deleteCommentByCommentID)
 
 
 module.exports = router

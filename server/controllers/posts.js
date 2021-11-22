@@ -1,6 +1,7 @@
 const Post = require("./../models/posts")
 const User = require("./../models/users")
 const mongoose = require("mongoose")
+const { jwtVerification } = require("./../handlers/jwtVerify")
 
 exports.getPosts = async (req,res) => {
     const posts = await Post.find().populate("creator","email username")
@@ -48,6 +49,12 @@ exports.createPost = async (req,res) => {
         return res.status(404).json({message:"No user exists with provided id!"})
     }
 
+    // JWT Verification
+    let isUserVerified = jwtVerification(req, res, user.email, creator)
+    if(!isUserVerified) {
+        return res.status(403).json({message: "Unauthorized User"})  
+    }
+
     const newPost = new Post({
         content,
         imageURL,
@@ -78,13 +85,21 @@ exports.updatePostByPostID = async (req,res) => {
         return res.status(404).json({message:"the provided id is invalid"})
     }
 
-    const post = await Post.findPostByPostID(postID)
+    let post = await Post.findPostByPostID(postID)
+
     if (!post){ 
         return res.status(404).json({message:"No post found with provided ID"})
     }
 
     post.content = content
     post.imageURL = imageURL
+
+    const user = await User.findById(post.creator)
+    // JWT Verification
+    let isUserVerified = jwtVerification(req, res, user.email, post.creator)
+    if(!isUserVerified) {
+        return res.status(403).json({message: "Unauthorized User"})  
+    }
 
     try {
         await post.save()
@@ -110,6 +125,11 @@ exports.deletePostByPostID = async (req,res) => {
 
     const user = await User.findById(post.creator)
     user.posts = user.posts.filter(id => id.toString() != post._id.toString())
+    // JWT Verification
+    let isUserVerified = jwtVerification(req, res, user.email, post.creator)
+    if(!isUserVerified) {
+        return res.status(403).json({message: "Unauthorized User"})  
+    }
 
     try{
         await post.remove()

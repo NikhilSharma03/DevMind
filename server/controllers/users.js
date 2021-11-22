@@ -1,6 +1,8 @@
 const { isValidObjectId } = require("mongoose")
 const User = require("./../models/users")
 const bcrypt = require('bcryptjs');
+const jwt = require("jsonwebtoken")
+const {jwtVerification} = require("./../handlers/jwtVerify")
 
 exports.getUserByID = async (req, res) => {
     const userID = req.params.userID
@@ -44,10 +46,10 @@ exports.signUp = async (req, res) => {
         return res.status(500).json({message:"Something went wrong", error: err.message})
     }
 
-    delete newUser.password
+    // jwt TOKEN
+    let jwtToken = jwt.sign({userID: newUser._id, email: newUser.email, expiresIn: +Date.now() + 60*60*1000}, process.env.JWT_SECRET_KEY, { expiresIn: '1h'})
 
-
-    res.status(201).json({message: "Created Successfully", user: newUser})
+    res.status(201).json({message: "Created Successfully", user: newUser, token: jwtToken})
 }
 
 exports.login = async (req, res) => {
@@ -73,7 +75,10 @@ exports.login = async (req, res) => {
 
     delete user.password
 
-    res.status(200).json({message: "Login Successfully", user})
+    // jwt TOKEN
+    let jwtToken = jwt.sign({userID: user._id, email: user.email, expiresIn: +Date.now() + 60*60*1000}, process.env.JWT_SECRET_KEY, { expiresIn: '1h'})
+
+    res.status(200).json({message: "Login Successfully", user, token: jwtToken})
 }
 
 exports.updateUserByID = async (req, res) => {
@@ -94,13 +99,18 @@ exports.updateUserByID = async (req, res) => {
     user.bio = bio
     user.profileImage = profileImage
     
-    try{
-        await user.save()
-    } catch (err) {
-        return res.status(500).json({message:"Something went wrong", error: err.message})
+    // JWT Verification
+    let isUserVerified = jwtVerification(req,res, user.email, userID)
+    if(isUserVerified){
+        try{
+            await user.save()
+        } catch (err) {
+            return res.status(500).json({message:"Something went wrong", error: err.message})
+        }
+        res.status(200).json({message: "User updated successfully"})
+    } else {
+        res.status(403).json({message: "Unauthorized User"})    
     }
-
-    res.status(200).json({message: "User updated successfully"})
 }
 
 exports.deleteUserByID = async (req, res) => {
@@ -116,12 +126,18 @@ exports.deleteUserByID = async (req, res) => {
         return res.status(404).json({message:"No user exists with provided id!"})
     }
 
-    try{
-        await user.remove()
-    } catch (err) {
-        return res.status(500).json({message: "Something went wrong", error: err.message})
+    // JWT Verification
+    let isUserVerified = jwtVerification(req,res, user.email, userID)
+    if(isUserVerified){
+        try{
+            await user.remove()
+        } catch (err) {
+            return res.status(500).json({message: "Something went wrong", error: err.message})
+        }
+        res.status(200).json({message: "User deleted successfully"})    
+    } else {
+        res.status(403).json({message: "Unauthorized User"})    
     }
 
-
-    res.status(200).json({message: "User deleted successfully"})
 }
+
