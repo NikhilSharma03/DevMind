@@ -59,7 +59,8 @@ exports.createPost = async (req,res) => {
         content,
         imageURL,
         creator: user,
-        comments: []
+        comments: [],
+        likes: []
     })
 
     try {
