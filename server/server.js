@@ -10,11 +10,13 @@ app.use(bodyParser.json())
 // Routers
 const postRoutes = require("./routes/posts")
 const commentRoutes = require("./routes/comments")
+const likeRoutes = require("./routes/likes")
 const userRoutes = require("./routes/users")
 
 // Routes
 app.use("/api/posts", postRoutes)
 app.use("/api/posts/comments", commentRoutes)
+app.use("/api/posts/likes", likeRoutes)
 app.use("/api/users", userRoutes)
 
 // Db connection
