@@ -21,7 +21,7 @@ exports.getUserByID = async (req, res) => {
 }
 
 exports.signUp = async (req, res) => {
-    const { username, email, password, bio, profileImage } = req.body
+    const { username, email, password, bio } = req.body
 
     let hashedPassword;
 
@@ -31,12 +31,17 @@ exports.signUp = async (req, res) => {
         return res.status(500).json({message:"Something went wrong", error: err.message})
     }
 
+    let isImageAttached = false
+    if(req.file){
+        isImageAttached = true
+    }
+
     const newUser = new User({
         username,
         email,
         password : hashedPassword,
         bio,
-        profileImage,
+        profileImage: isImageAttached ? "http://localhost:5000"+req.file.path: "https://www.pikpng.com/pngl/m/80-805068_my-profile-icon-blank-profile-picture-circle-clipart.png",
         posts: []
     })
 

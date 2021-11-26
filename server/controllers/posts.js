@@ -37,7 +37,7 @@ exports.getPostsByUserID = async (req,res) => {
 }
 
 exports.createPost = async (req,res) => {
-    const { content, imageURL, creator } = req.body
+    const { content, creator } = req.body
 
     let isObjectID = mongoose.isValidObjectId(creator)
     if (!isObjectID) {
@@ -55,9 +55,14 @@ exports.createPost = async (req,res) => {
         return res.status(403).json({message: "Unauthorized User"})  
     }
 
+    let isImageAttached = false
+    if(req.file){
+        isImageAttached = true
+    }
+
     const newPost = new Post({
         content,
-        imageURL,
+        imageURL: isImageAttached ? "http://localhost:5000"+req.file.path : "",
         creator: user,
         comments: [],
         likes: []
