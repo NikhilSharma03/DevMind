@@ -6,6 +6,7 @@ const mongoose = require("mongoose")
 // Middlewares
 require('dotenv').config()
 app.use(bodyParser.json())
+app.use('/uploads', express.static('uploads'));
 
 // Routers
 const postRoutes = require("./routes/posts")
