@@ -59,21 +59,6 @@ src="https://img.shields.io/badge/css3%20-%231572B6.svg?&style=for-the-badge&log
 
 <hr>
 
-## Setup and Installation
-
-Run the following commands in the project directory to set up the project
-
-
-```
-npm install
-```
-
-```
-npm start
-```
-
-<br>
-
 # License
 
 <div align="center">  
