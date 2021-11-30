@@ -41,7 +41,7 @@ exports.signUp = async (req, res) => {
         email,
         password : hashedPassword,
         bio,
-        profileImage: isImageAttached ? "http://localhost:5000"+req.file.path: "https://www.pikpng.com/pngl/m/80-805068_my-profile-icon-blank-profile-picture-circle-clipart.png",
+        profileImage: isImageAttached ? req.file.path: "https://www.pikpng.com/pngl/m/80-805068_my-profile-icon-blank-profile-picture-circle-clipart.png",
         posts: []
     })
 
