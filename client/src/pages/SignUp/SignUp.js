@@ -10,6 +10,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("")
   const [bio, setBio] = useState("")
   const [profileImage, setProfileImage] = useState(null)
+  const [error, setError] = useState("")
 
   const onSubmitHandler = (event) => {
     event.preventDefault()
@@ -25,8 +26,10 @@ const SignUp = () => {
       method: "POST",
       body: formData
     }).then(res => {
+
       console.log(res)
     }).catch(err => {
+      
       console.log(err)
     })
   }
