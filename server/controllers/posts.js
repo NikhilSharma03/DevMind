@@ -62,7 +62,7 @@ exports.createPost = async (req,res) => {
 
     const newPost = new Post({
         content,
-        imageURL: isImageAttached ? "http://localhost:5000"+req.file.path : "",
+        imageURL: isImageAttached ? req.file.path : "",
         creator: user,
         comments: [],
         likes: []

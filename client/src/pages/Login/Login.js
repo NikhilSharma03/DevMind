@@ -52,9 +52,6 @@ const Login = () => {
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
-          <div className="forgot__container">
-            <Link to="/forgot_password">Forgot Password?</Link>
-          </div>
           <button type="submit" className="form__button">
             Login
           </button>
