@@ -3,6 +3,7 @@ import "./SignUp.css";
 import Form from "../../components/Form/Form";
 import InputField from "../../components/InputField/InputField";
 import { Link } from "react-router-dom";
+import axios from "axios"
 
 const SignUp = () => {
   const [name, setName] = useState("")
@@ -22,15 +23,16 @@ const SignUp = () => {
     formData.append("profile", profileImage)
 
     // Make Request to API
-    fetch(`${process.env.REACT_APP_API+"/users/signup"}`, {
-      method: "POST",
-      body: formData
-    }).then(res => {
-
-      console.log(res)
+    axios.post(`${process.env.REACT_APP_API}/users/signup`,formData).then(res => {
+      console.log(res.data.token)
+      console.log(res.data.user.bio)
+      console.log(res.data.user.email)
+      console.log(res.data.user._id)
+      console.log(res.data.user.username)
+      console.log(res.data.user.profileImage)
+      console.log(res.data.user.posts)
     }).catch(err => {
-      
-      console.log(err)
+      console.log(err.message)
     })
   }
 
