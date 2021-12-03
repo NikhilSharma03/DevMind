@@ -3,30 +3,24 @@ import "./Login.css";
 import Form from "./../../components/Form/Form";
 import InputField from "./../../components/InputField/InputField";
 import { Link } from "react-router-dom";
-import axios from "axios"
+import * as actionCreators from "./../../store/actions/user"
+import { useSelector, useDispatch } from "react-redux"
 
 const Login = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const error = useSelector(state => state.user.logIn_error)
+
+  const dispatch = useDispatch()
+  const LoginHandler = dispatch((email, password) => actionCreators.LogInHandler(email, password))
 
   const onSubmitHandler = (event) => {
     event.preventDefault()
-    const data = {
-      email,
-      password
-    }
-    // Make Request to API
-    axios.post(`${process.env.REACT_APP_API}/users/login`, data).then(res => {
-      console.log(res.data.token)
-      console.log(res.data.user.bio)
-      console.log(res.data.user.email)
-      console.log(res.data.user._id)
-      console.log(res.data.user.username)
-      console.log(res.data.user.profileImage)
-      console.log(res.data.user.posts)
-    }).catch(err => {
-      console.log(err.response.data.message)
-    })
+    LoginHandler(email, password)
+  }
+
+  if(error) {
+    console.log(error)
   }
 
   return (

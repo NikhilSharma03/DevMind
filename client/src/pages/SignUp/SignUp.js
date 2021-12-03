@@ -3,7 +3,8 @@ import "./SignUp.css";
 import Form from "../../components/Form/Form";
 import InputField from "../../components/InputField/InputField";
 import { Link } from "react-router-dom";
-import axios from "axios"
+import * as actionCreators from "./../../store/actions/user"
+import { useSelector, useDispatch } from "react-redux"
 
 const SignUp = () => {
   const [name, setName] = useState("")
@@ -11,34 +12,23 @@ const SignUp = () => {
   const [password, setPassword] = useState("")
   const [bio, setBio] = useState("")
   const [profileImage, setProfileImage] = useState(null)
-  const [error, setError] = useState("")
+  const error = useSelector(state => state.user.signUp_error)
+
+  const dispatch = useDispatch()
+  const SignUpHandler = dispatch((name, email, password, bio, profileImage) => actionCreators.SignUpHandler(name, email, password, bio, profileImage))
 
   const onSubmitHandler = (event) => {
     event.preventDefault()
-    const formData = new FormData()
-    formData.append("username", name)
-    formData.append("email", email)
-    formData.append("password", password)
-    formData.append("bio", bio)
-    formData.append("profile", profileImage)
-
-    // Make Request to API
-    axios.post(`${process.env.REACT_APP_API}/users/signup`,formData).then(res => {
-      console.log(res.data.token)
-      console.log(res.data.user.bio)
-      console.log(res.data.user.email)
-      console.log(res.data.user._id)
-      console.log(res.data.user.username)
-      console.log(res.data.user.profileImage)
-      console.log(res.data.user.posts)
-    }).catch(err => {
-      console.log(err.error.message)
-    })
+    SignUpHandler(name, email, password, bio, profileImage)
   }
 
   const onFileChange = event => {
     setProfileImage(event.target.files[0]);
   };
+
+  if(error) {
+    console.log(error)
+  }
 
   return (
     <div className="signup__container">
