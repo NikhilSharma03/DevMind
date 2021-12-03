@@ -36,6 +36,11 @@ exports.signUp = async (req, res) => {
         isImageAttached = true
     }
 
+    let isEmailAlreadyExist = await User.findOne({email})
+    if(isEmailAlreadyExist) {
+        return res.status(300).json({message:"User already exits"})
+    }
+
     const newUser = new User({
         username,
         email,

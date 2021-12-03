@@ -32,7 +32,7 @@ const SignUp = () => {
       console.log(res.data.user.profileImage)
       console.log(res.data.user.posts)
     }).catch(err => {
-      console.log(err.message)
+      console.log(err.error.message)
     })
   }
 
