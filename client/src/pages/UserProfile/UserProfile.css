@@ -23,6 +23,17 @@
   margin-left: 2.5rem;
 }
 
+.userprofile__error {
+  text-align: center;
+  font-size: 2rem;
+  color: #7776f9;
+}
+
+.userprofile__post--error {
+  text-align: center;
+  padding: 2rem;
+}
+
 .userprofile__header--image {
   width: 10rem;
   height: 10rem;
@@ -38,7 +49,7 @@
 .userprofile__header--image img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: fill;
 }
 
 .userprofile__header--btn {
@@ -144,37 +155,36 @@
   border-radius: 50px;
 }
 
-
 /* Media Queries */
 
-@media(max-width: 1150px) {
-  .userprofile__container{
+@media (max-width: 1150px) {
+  .userprofile__container {
     padding: 2rem 3rem;
     padding-top: 13rem;
   }
 }
 
-@media(max-width: 950px) {
-  .userprofile__main{
+@media (max-width: 950px) {
+  .userprofile__main {
     flex-direction: column;
   }
-  .userprofile__info{
+  .userprofile__info {
     width: 100%;
     margin-bottom: 5rem;
     overflow-y: unset;
   }
-  .userprofile__posts{
+  .userprofile__posts {
     padding-left: 0;
     padding-right: 0;
     overflow-y: unset;
   }
-  .userprofile__container{
+  .userprofile__container {
     height: fit-content;
   }
 }
 
-@media(max-width: 475px){
-  .userprofile__container{
+@media (max-width: 475px) {
+  .userprofile__container {
     padding-left: 2rem;
     padding-right: 2rem;
   }

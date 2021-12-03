@@ -20,7 +20,7 @@ function App() {
       <Switch>
         <Route exact path="/comment" component={Comment} />
         <Route exact path="/feed" component={Feed} />
-        <Route exact path="/profile" component={UserProfile} />
+        <Route exact path="/profile/:id" component={UserProfile} />
         <Route exact path="/update_post" component={UpdatePost} />
         <Route exact path="/create_post" component={AddPost} />
         <Route exact path="/login" component={Login} />
