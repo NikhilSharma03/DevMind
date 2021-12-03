@@ -7,7 +7,7 @@ const initialState = {
     id: null, 
     username: null,
     profileImage: null,
-    posts: null,
+    posts: [],
     signUp_error: null,
     logIn_error: null
 }
@@ -49,6 +49,8 @@ const reducer = (state = initialState, actions) => {
                 ...state,
                 logIn_error : actions.error
             }
+        default: 
+            return state
     }
 }
 

@@ -10,7 +10,8 @@ import {
   UpdatePost,
   UserProfile,
   Feed,
-  Comment
+  Comment,
+  MyProfile
 } from "./pages/PageSrc";
 import { Switch, Route } from "react-router-dom";
 
@@ -20,7 +21,7 @@ function App() {
       <Switch>
         <Route exact path="/comment" component={Comment} />
         <Route exact path="/feed" component={Feed} />
-        <Route exact path="/my_profile" component={UserProfile} />
+        <Route exact path="/my_profile" component={MyProfile} />
         <Route exact path="/profile/:id" component={UserProfile} />
         <Route exact path="/update_post" component={UpdatePost} />
         <Route exact path="/create_post" component={AddPost} />

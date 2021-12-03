@@ -13,9 +13,10 @@ const SignUp = () => {
   const [bio, setBio] = useState("")
   const [profileImage, setProfileImage] = useState(null)
   const error = useSelector(state => state.user.signUp_error)
+  const token = useSelector(state => state.user.token)
 
   const dispatch = useDispatch()
-  const SignUpHandler = dispatch((name, email, password, bio, profileImage) => actionCreators.SignUpHandler(name, email, password, bio, profileImage))
+  const SignUpHandler = (name, email, password, bio, profileImage) => dispatch(actionCreators.SignUpHandler(name, email, password, bio, profileImage))
 
   const onSubmitHandler = (event) => {
     event.preventDefault()
@@ -25,6 +26,8 @@ const SignUp = () => {
   const onFileChange = event => {
     setProfileImage(event.target.files[0]);
   };
+
+  console.log("Token: ", token)
 
   if(error) {
     console.log(error)

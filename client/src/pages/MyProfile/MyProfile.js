@@ -1,38 +1,28 @@
 import React, { useEffect, useState } from "react";
-import "./UserProfile.css";
+import "./MyProfile.css";
 import PostCard from "./../../components/PostCard/PostCard";
-import axios from "axios"
+import { useSelector } from "react-redux"
+import { Redirect } from "react-router";
 
-const UserProfile = (props) => {
-  const [email, setEmail] = useState("")
-  const [posts, setPosts] = useState([])
-  const [bio, setBio] = useState("")
-  const [profileImage, setProfileImage] = useState("")
-  const [username, setUsername] = useState("")
-  const [error, setError] = useState(null)
+const MyProfile = (props) => {
+  const token = useSelector(state => state.user.token)
+  const email = useSelector(state => state.user.email)
+  const bio = useSelector(state => state.user.bio)
+  const username = useSelector(state => state.user.username)
+  const profileImage = useSelector(state => state.user.profileImage)
+  const posts = useSelector(state => state.user.posts)
 
-  useEffect(() => {
-    const userID = props.match.params.id
-    axios.get(`${process.env.REACT_APP_API}/users/${userID}`).then(res => {
-      setBio(res.data.user.bio)
-      setEmail(res.data.user.email)
-      setPosts(res.data.user.posts)
-      setProfileImage(res.data.user.profileImage)
-      setUsername(res.data.user.username)
-    }).catch(err => {
-      setError(err.response.data.message)
-    })
-  }, [])
-  
+  if(!token) {
+    return <Redirect to="/signup" />
+  }
 
   return (
     <section className="userprofile__container">
-      {error ? <h1 className="userprofile__error">No User Found</h1> :
       <React.Fragment>
       <div className="userprofile__header">
         <div className="userprofile__header--container">
           <figcaption className="userprofile__header--image">
-            <img src={"http://localhost:5000/"+profileImage} alt="user image" />
+            <img semailrc={"http://localhost:5000/"+profileImage} alt="user image" />
           </figcaption>
           <h1>{username}</h1>
         </div>
@@ -56,9 +46,8 @@ const UserProfile = (props) => {
         </div>
       </div>
       </React.Fragment>
-      }
     </section>
   );
 };
 
-export default UserProfile;
+export default MyProfile;

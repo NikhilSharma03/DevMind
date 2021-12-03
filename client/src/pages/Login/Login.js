@@ -10,14 +10,19 @@ const Login = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const error = useSelector(state => state.user.logIn_error)
+  const token = useSelector(state => state.user.token)
+
 
   const dispatch = useDispatch()
-  const LoginHandler = dispatch((email, password) => actionCreators.LogInHandler(email, password))
+  const LoginHandler = (email, password) => dispatch(actionCreators.LogInHandler(email, password))
 
   const onSubmitHandler = (event) => {
     event.preventDefault()
     LoginHandler(email, password)
   }
+
+  console.log("Token Login: ", token)
+
 
   if(error) {
     console.log(error)

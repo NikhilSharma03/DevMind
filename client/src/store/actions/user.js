@@ -21,12 +21,12 @@ export const SignUpHandler = (name, email, password, bio, profileImage) => {
 
 export const LogInHandler = (email, password) => {
     return dispatch => {
-        const data = {
+        const userdata = {
             email,
             password
         }
         // Request to API
-        axios.post(`${process.env.REACT_APP_API}/users/login`, data).then(res => {
+        axios.post(`${process.env.REACT_APP_API}/users/login`, userdata).then(res => {
             dispatch({type: actionTypes.USER_LOG_IN, token: res.data.token, user: res.data.user})
         }).catch(err => {
             dispatch({type: actionTypes.USER_LOG_IN_ERROR, error: err.response.data.message})
