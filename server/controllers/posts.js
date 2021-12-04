@@ -67,10 +67,15 @@ exports.createPost = async (req,res) => {
         comments: [],
         likes: []
     })
-
+    
     try {
         await newPost.save()
-        user.posts.push(newPost)
+    } catch (error){
+        return res.status(500).json({message: error.message})
+    }
+
+    try {
+        user.posts.push(newPost._id)
         await user.save()
     } catch (error){
         return res.status(500).json({message: error.message})

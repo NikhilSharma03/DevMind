@@ -5,33 +5,38 @@ import axios from "axios"
 import { useSelector } from "react-redux";
 import { Redirect } from 'react-router'
 
-const AddPost = () => {
-  const [postContent, setPostContent] = useState("")
-  const [postImage, setPostImage] = useState(null)
+const AddPost = (props) => {
   const token = useSelector(state => state.user.token)
   const userID = useSelector(state => state.user.id)
+  const [postContent, setPostContent] = useState("")
+  const [postImage, setPostImage] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   const onFileChange = event => {
     setPostImage(event.target.files[0]);
   };
 
+  console.log("--------------", loading)
+
   const onSubmitHandler = (event) => {
     event.preventDefault()
+    setLoading(true)
     const formData = new FormData()
     formData.append("content", postContent)
     formData.append("creator", userID)
     formData.append("image", postImage)
-
     // Make Request to API
-    axios.post(`${process.env.REACT_APP_API}/posts`,formData, {headers: {token: `Bearer ${token}`}}).then(res => {
+    axios.post(`${process.env.REACT_APP_API}/posts`, formData, { headers: { token: "Bearer "+ token }}).then(res => {
+      setLoading(false)
       console.log(res)
+      props.history.push("/feed")
     }).catch(err => {
       console.log(err.response.data.message)
     })
   }
 
   if(!token) {
-    return <Redirect to="/login" />
+    // return <Redirect to="/login" />
   }
 
   return (
