@@ -137,7 +137,7 @@ exports.deletePostByPostID = async (req,res) => {
     const user = await User.findById(post.creator)
     user.posts = user.posts.filter(id => id.toString() != post._id.toString())
     // JWT Verification
-    let isUserVerified = jwtVerification(req, res, user.email, post.creator)
+    let isUserVerified = jwtVerification(req, res, user.email, post.creator.toString())
     if(!isUserVerified) {
         return res.status(403).json({message: "Unauthorized User"})  
     }

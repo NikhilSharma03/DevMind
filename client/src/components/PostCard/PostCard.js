@@ -4,9 +4,12 @@ import Src from "./../../shared/ImageSource";
 import SvgSrc from "./../../shared/SvgSrc";
 import DeleteModal from './../Modal/DeleteModal'
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 const PostCard = ({postDetails, creator}) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const token = useSelector(state => state.user.token)
 
   const scrollToTop = () =>{
     window.scrollTo({
@@ -20,10 +23,19 @@ const PostCard = ({postDetails, creator}) => {
     setShowDeleteModal(true)
   }
 
+  const deletePostHandler = () => {
+    axios.delete(process.env.REACT_APP_API+"/posts/"+postDetails._id, { headers: {token: "Bearer "+token}}).then(res => {
+      window.location.reload(false);
+    }).catch(err => {
+      console.log(err)
+    })
+    setShowDeleteModal(false)
+  }
+
 
   return (
     <div className="postcard__container">
-      <DeleteModal showModal={showDeleteModal} onClose={() => setShowDeleteModal(false)}/>
+      <DeleteModal showModal={showDeleteModal} onDelete={deletePostHandler} onClose={() => setShowDeleteModal(false)}/>
       <div className="postcard__container--topbar">
         <div className="postcard__container--username">
           <figcaption className="postcard__username--image">
@@ -31,11 +43,13 @@ const PostCard = ({postDetails, creator}) => {
           </figcaption>
           <h1>{creator}</h1>
         </div>
-        <div className="postcard__container--topbar__delete" onClick={onDeleteHandler}>
+        <div className="postcard__container--topbar__delete" >
           <Link to={`/update_post/${postDetails._id}`}>
             <SvgSrc.Edit/>
           </Link>
-          <SvgSrc.Delete/>
+          <div onClick={onDeleteHandler} style={{cursor: "pointer"}}>
+            <SvgSrc.Delete/>
+          </div>
         </div>
       </div>
       <div className="postcard__container--content">
