@@ -3,14 +3,28 @@ import "./MyProfile.css";
 import PostCard from "./../../components/PostCard/PostCard";
 import { useSelector } from "react-redux"
 import { Redirect } from "react-router";
+import axios from "axios";
 
 const MyProfile = (props) => {
   const token = useSelector(state => state.user.token)
+  const userID = useSelector(state => state.user.id)
   const email = useSelector(state => state.user.email)
   const bio = useSelector(state => state.user.bio)
   const username = useSelector(state => state.user.username)
   const profileImage = useSelector(state => state.user.profileImage)
-  const posts = useSelector(state => state.user.posts)
+  const [posts, setPosts] = useState([])
+
+  useState(() => {
+    if(userID){
+      axios.get(`${process.env.REACT_APP_API}/users/${userID}`).then(res => {
+        setPosts(res.data.user.posts)
+      }).catch(err => {
+        console.log(err.response.data.message)
+      })
+    }
+  }, [])
+
+  console.log(posts)
 
   if(!token) {
     return <Redirect to="/signup" />
@@ -42,7 +56,7 @@ const MyProfile = (props) => {
         </div>
 
         <div className="userprofile__posts">
-          {posts.length <= 0 ? <h1 className="userprofile__post--error">No Posts</h1> : posts.map(item => <PostCard />)}
+          {posts.length <= 0 ? <h1 className="userprofile__post--error">No Posts</h1> : posts.map(item => <PostCard postDetails={item} creator={username}/>)}
         </div>
       </div>
       </React.Fragment>

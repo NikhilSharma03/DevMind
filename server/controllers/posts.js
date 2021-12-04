@@ -27,7 +27,7 @@ exports.getPostByPostID = async (req,res) => {
 
 exports.getPostsByUserID = async (req,res) => {
     const userID = req.params.userID
-    const posts = await Post.findPostByUserID(userID).populate("creator")
+    const posts = await Post.findPostByUserID(userID)
     
     if (posts.length === 0){ 
         return res.status(404).json({message:"No post found with provided user ID"})

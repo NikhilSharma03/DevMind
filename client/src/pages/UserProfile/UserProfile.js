@@ -52,7 +52,7 @@ const UserProfile = (props) => {
         </div>
 
         <div className="userprofile__posts">
-          {posts.length <= 0 ? <h1 className="userprofile__post--error">No Posts</h1> : posts.map(item => <PostCard />)}
+          {posts.length <= 0 ? <h1 className="userprofile__post--error">No Posts</h1> : posts.map(item => <PostCard postDetails={item} creator={username}/>)}
         </div>
       </div>
       </React.Fragment>

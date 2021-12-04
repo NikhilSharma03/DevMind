@@ -2,10 +2,13 @@ import React, {useState} from "react";
 import "./AddPost.css";
 import Form from "../../components/Form/Form";
 import axios from "axios"
+import { useSelector } from "react-redux";
 
 const AddPost = () => {
   const [postContent, setPostContent] = useState("")
   const [postImage, setPostImage] = useState(null)
+  const token = useSelector(state => state.user.token)
+  const userID = useSelector(state => state.user.id)
 
   const onFileChange = event => {
     setPostImage(event.target.files[0]);
@@ -15,11 +18,11 @@ const AddPost = () => {
     event.preventDefault()
     const formData = new FormData()
     formData.append("content", postContent)
-    formData.append("creator", postContent)
+    formData.append("creator", userID)
     formData.append("image", postImage)
 
     // Make Request to API
-    axios.post(`${process.env.REACT_APP_API}/posts`,formData).then(res => {
+    axios.post(`${process.env.REACT_APP_API}/posts`,formData, {headers: {token: `Bearer ${token}`}}).then(res => {
       console.log(res)
     }).catch(err => {
       console.log(err.response.data.message)

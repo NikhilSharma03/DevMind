@@ -4,7 +4,7 @@ import Src from "./../../shared/ImageSource";
 import SvgSrc from "./../../shared/SvgSrc";
 import DeleteModal from './../Modal/DeleteModal'
 
-const PostCard = () => {
+const PostCard = ({postDetails, creator}) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false)
 
   const scrollToTop = () =>{
@@ -28,7 +28,7 @@ const PostCard = () => {
           <figcaption className="postcard__username--image">
             <img src={Src.sdProfile} alt="Post Image" />
           </figcaption>
-          <h1>UserName</h1>
+          <h1>{creator}</h1>
         </div>
         <div className="postcard__container--topbar__delete" onClick={onDeleteHandler}>
           <SvgSrc.Delete/>
@@ -36,20 +36,21 @@ const PostCard = () => {
       </div>
       <div className="postcard__container--content">
         <p className="postcard__content--para">
-          Paraphrasing-Tool uses intelligent, decision making software to figure
+          {postDetails.content}
         </p>
+        {postDetails.imageURL &&
         <figcaption className="postcard__content--image">
-          <img src={Src.homeBanner} alt="Post Image" />
-        </figcaption>
+           <img src={`http://localhost:5000/${postDetails.imageURL}`} alt="Post Image" />
+        </figcaption>}
       </div>
       <div className="postcard__container--actionbtns">
         <div className="postcard__actionbtns--main">
           <SvgSrc.Heart />
-          <span>3</span>
+          <span>{postDetails.likes.length}</span>
         </div>
         <div className="postcard__actionbtns--main">
           <SvgSrc.Comment />
-          <span>3</span>
+          <span>{postDetails.comments.length}</span>
         </div>
       </div>
     </div>

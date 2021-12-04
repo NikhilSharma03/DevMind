@@ -23,7 +23,7 @@ postSchema.statics.findPostByPostID = async function (postID) {
 }
 
 postSchema.statics.findPostByUserID = async function (userID) {
-    const data = await this.find({creator: userID})
+    const data = await this.find({creator: userID}).populate("creator")
     return data
 }
 
