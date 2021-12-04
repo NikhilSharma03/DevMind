@@ -28,10 +28,6 @@ function SideDrawer(props) {
             <img src={ImageSource.sdPost} alt="icons" />
             Create
           </NavItem>
-          <NavItem href="/create_post">
-            <img src={ImageSource.sdAbout} alt="icons" />
-            About
-          </NavItem>
           <NavItem href="/my_profile">
             <img src={ImageSource.sdProfile} alt="icons" />
             Profile

@@ -11,7 +11,8 @@ import {
   UserProfile,
   Feed,
   Comment,
-  MyProfile
+  MyProfile,
+  LogOut
 } from "./pages/PageSrc";
 import { Switch, Route } from "react-router-dom";
 import * as actionCreators from "./store/actions/user"
@@ -35,6 +36,7 @@ function App() {
         <Route exact path="/update_post" component={UpdatePost} />
         <Route exact path="/create_post" component={AddPost} />
         <Route exact path="/login" component={Login} />
+        <Route exact path="/logout" component={LogOut} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/" component={Home} />
       </Switch>
