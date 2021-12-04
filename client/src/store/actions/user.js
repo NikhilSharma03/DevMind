@@ -98,3 +98,15 @@ export const LogOutHandler = () => {
         type: actionTypes.USER_LOG_OUT,
     }
 }
+
+export const ClearError = (type) => {
+    if(type === "login"){
+        return {
+            type: actionTypes.USER_LOG_IN_ERROR_CLEAR
+        }
+    } else if(type === "signup") {
+        return {
+            type: actionTypes.USER_SIGN_UP_ERROR_CLEAR
+        }
+    }
+}

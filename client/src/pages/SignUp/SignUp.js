@@ -5,6 +5,7 @@ import InputField from "../../components/InputField/InputField";
 import { Link, Redirect } from "react-router-dom";
 import * as actionCreators from "./../../store/actions/user"
 import { useSelector, useDispatch } from "react-redux"
+import Modal from "./../../components/Modal/Modal"
 
 const SignUp = () => {
   const [name, setName] = useState("")
@@ -17,6 +18,7 @@ const SignUp = () => {
 
   const dispatch = useDispatch()
   const SignUpHandler = (name, email, password, bio, profileImage) => dispatch(actionCreators.SignUpHandler(name, email, password, bio, profileImage))
+  const ClearErrorHandler = (type) => dispatch(actionCreators.ClearError(type))
 
   const onSubmitHandler = (event) => {
     event.preventDefault()
@@ -27,26 +29,17 @@ const SignUp = () => {
     setProfileImage(event.target.files[0]);
   };
 
+  const onClearErrorHandler = () => {
+    ClearErrorHandler("signup")
+  }
+
   if(token){
     return <Redirect to="/my_profile" />
   }
 
-  const Modal = () => (
-    <div>
-    <div className={`delete__modal ${!error ? "open" : ""}`}>
-      <h1 className="delete__modal--head">Error</h1>
-      <p className="delete__modal--para">{error}</p>
-      <div className="delete__modal--btn__container">
-        <button onClick={() => {}}>Clear</button>
-      </div>
-    </div>
-    <div className={`delete__modal__bg ${!error ? "open" : ""}`} onClick={() => {}} />
-  </div>
-  )
-
   return (
     <div className="signup__container">
-      {error && Modal}
+      {error && <Modal showModal={error} message={error} closeModal={onClearErrorHandler}/>}
       <Form onSubmit={onSubmitHandler}>
         <div className="form__banner">
           <h1>SignUp</h1>

@@ -23,6 +23,10 @@ exports.getUserByID = async (req, res) => {
 exports.signUp = async (req, res) => {
     const { username, email, password, bio } = req.body
 
+    if(!username || !email || password.length < 8 || !bio){
+        return res.status(500).json({message:"Invalid input"})
+    }
+
     let hashedPassword;
 
     try{

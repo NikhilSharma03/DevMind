@@ -70,6 +70,18 @@ const reducer = (state = initialState, actions) => {
                 profileImage: actions.profileImage,
             }
 
+        case actionTypes.USER_LOG_IN_ERROR_CLEAR:
+            return {
+                ...state,
+                logIn_error: null
+            }
+
+        case actionTypes.USER_SIGN_UP_ERROR_CLEAR:
+            return {
+                ...state,
+                signUp_error: null
+            }
+
         default: 
             return state
     }
