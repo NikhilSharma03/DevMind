@@ -5,6 +5,7 @@ import InputField from "./../../components/InputField/InputField";
 import { Link, Redirect } from "react-router-dom";
 import * as actionCreators from "./../../store/actions/user"
 import { useSelector, useDispatch } from "react-redux"
+import Modal from "./../../components/Modal/Modal"
 
 const Login = () => {
   const [email, setEmail] = useState("")
@@ -15,14 +16,15 @@ const Login = () => {
 
   const dispatch = useDispatch()
   const LoginHandler = (email, password) => dispatch(actionCreators.LogInHandler(email, password))
+  const ClearErrorHandler = (type) => dispatch(actionCreators.ClearError(type))
 
   const onSubmitHandler = (event) => {
     event.preventDefault()
     LoginHandler(email, password)
   }
 
-  if(error) {
-    console.log(error)
+  const onClearErrorHandler = () => {
+    ClearErrorHandler("login")
   }
 
   if(token){
@@ -31,6 +33,7 @@ const Login = () => {
 
   return (
     <div className="login__container">
+      {error && <Modal showModal={error} message={error} closeModal={onClearErrorHandler}/>}
       <Form onSubmit={onSubmitHandler}>
         <div className="form__banner">
           <h1>Login</h1>
