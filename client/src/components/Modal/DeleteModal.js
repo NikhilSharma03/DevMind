@@ -8,7 +8,7 @@ function DeleteModal(props)  {
             <h1 className="delete__modal--head">Delete</h1>
             <p className="delete__modal--para">Are you sure you want to delete your account</p>
             <div className="delete__modal--btn__container">
-              <button>Delete</button>
+              <button onClick={props.onDelete}>Delete</button>
               <button onClick={props.onClose}>Cancel</button>
             </div>
           </div>

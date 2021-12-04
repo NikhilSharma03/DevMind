@@ -35,7 +35,6 @@ const UserProfile = (props) => {
           </figcaption>
           <h1>{username}</h1>
         </div>
-        <button className="userprofile__header--btn">Edit Button</button>
       </div>
       <div className="userprofile__main">
         <div className="userprofile__info">

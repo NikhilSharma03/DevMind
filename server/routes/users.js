@@ -9,9 +9,8 @@ const imageUploadMiddleware = require("./../middlewares/imageUpload")
 router.get("/:userID", usersController.getUserByID)
 
 router.post("/signup", imageUploadMiddleware.single("profile"),usersController.signUp)
-router.post("/login", usersController.login)
 
-router.patch("/:userID", JWTAuthMiddleware, usersController.updateUserByID)
+router.post("/login", usersController.login)
 
 router.delete("/:userID", JWTAuthMiddleware, usersController.deleteUserByID)
 
