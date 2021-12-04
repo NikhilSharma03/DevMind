@@ -40,7 +40,7 @@ const PostCard = ({postDetails, creator}) => {
         </p>
         {postDetails.imageURL &&
         <figcaption className="postcard__content--image">
-           <img src={`http://localhost:5000/${postDetails.imageURL}`} alt="Post Image" />
+           <img src={process.env.REACT_APP_IMAGE_PATH + postDetails.imageURL} alt="Post Image" />
         </figcaption>}
       </div>
       <div className="postcard__container--actionbtns">

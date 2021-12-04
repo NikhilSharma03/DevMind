@@ -3,6 +3,7 @@ import "./AddPost.css";
 import Form from "../../components/Form/Form";
 import axios from "axios"
 import { useSelector } from "react-redux";
+import { Redirect } from 'react-router'
 
 const AddPost = () => {
   const [postContent, setPostContent] = useState("")
@@ -27,6 +28,10 @@ const AddPost = () => {
     }).catch(err => {
       console.log(err.response.data.message)
     })
+  }
+
+  if(!token) {
+    return <Redirect to="/login" />
   }
 
   return (

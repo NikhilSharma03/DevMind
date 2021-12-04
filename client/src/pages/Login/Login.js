@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import "./Login.css";
 import Form from "./../../components/Form/Form";
 import InputField from "./../../components/InputField/InputField";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import * as actionCreators from "./../../store/actions/user"
 import { useSelector, useDispatch } from "react-redux"
 
@@ -21,11 +21,12 @@ const Login = () => {
     LoginHandler(email, password)
   }
 
-  console.log("Token Login: ", token)
-
-
   if(error) {
     console.log(error)
+  }
+
+  if(token){
+    return <Redirect to="/my_profile" />
   }
 
   return (

@@ -2,8 +2,16 @@ import React from "react";
 import "./UpdatePost.css";
 import Form from "../../components/Form/Form";
 import ImageSource from "./../../shared/ImageSource";
+import { Redirect } from 'react-router'
+import { useSelector } from "react-redux";
+
 
 const UpdatePost = () => {
+  const token = useSelector(state => state.user.token)
+  if(!token) {
+    return <Redirect to="/login" />
+  }
+
   return (
     <div className="updatepost__container">
       <Form style={{ width: "45rem" }}>

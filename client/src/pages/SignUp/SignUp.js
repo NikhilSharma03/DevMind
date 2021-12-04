@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./SignUp.css";
 import Form from "../../components/Form/Form";
 import InputField from "../../components/InputField/InputField";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import * as actionCreators from "./../../store/actions/user"
 import { useSelector, useDispatch } from "react-redux"
 
@@ -27,14 +27,26 @@ const SignUp = () => {
     setProfileImage(event.target.files[0]);
   };
 
-  console.log("Token: ", token)
-
-  if(error) {
-    console.log(error)
+  if(token){
+    return <Redirect to="/my_profile" />
   }
+
+  const Modal = () => (
+    <div>
+    <div className={`delete__modal ${!error ? "open" : ""}`}>
+      <h1 className="delete__modal--head">Error</h1>
+      <p className="delete__modal--para">{error}</p>
+      <div className="delete__modal--btn__container">
+        <button onClick={() => {}}>Clear</button>
+      </div>
+    </div>
+    <div className={`delete__modal__bg ${!error ? "open" : ""}`} onClick={() => {}} />
+  </div>
+  )
 
   return (
     <div className="signup__container">
+      {error && Modal}
       <Form onSubmit={onSubmitHandler}>
         <div className="form__banner">
           <h1>SignUp</h1>

@@ -23,7 +23,6 @@ const UserProfile = (props) => {
       setError(err.response.data.message)
     })
   }, [])
-  
 
   return (
     <section className="userprofile__container">
@@ -32,7 +31,7 @@ const UserProfile = (props) => {
       <div className="userprofile__header">
         <div className="userprofile__header--container">
           <figcaption className="userprofile__header--image">
-            <img src={"http://localhost:5000/"+profileImage} alt="user image" />
+            <img src={process.env.REACT_APP_IMAGE_PATH + profileImage} alt="user image" />
           </figcaption>
           <h1>{username}</h1>
         </div>

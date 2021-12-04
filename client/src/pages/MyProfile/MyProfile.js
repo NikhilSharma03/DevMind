@@ -14,7 +14,7 @@ const MyProfile = (props) => {
   const profileImage = useSelector(state => state.user.profileImage)
   const [posts, setPosts] = useState([])
 
-  useState(() => {
+  useEffect(() => {
     if(userID){
       axios.get(`${process.env.REACT_APP_API}/users/${userID}`).then(res => {
         setPosts(res.data.user.posts)
@@ -24,10 +24,8 @@ const MyProfile = (props) => {
     }
   }, [])
 
-  console.log(posts)
-
   if(!token) {
-    return <Redirect to="/signup" />
+    return <Redirect to="/login" />
   }
 
   return (
@@ -36,7 +34,7 @@ const MyProfile = (props) => {
       <div className="userprofile__header">
         <div className="userprofile__header--container">
           <figcaption className="userprofile__header--image">
-            <img semailrc={"http://localhost:5000/"+profileImage} alt="user image" />
+            <img src={process.env.REACT_APP_IMAGE_PATH + profileImage} alt="user image" />
           </figcaption>
           <h1>{username}</h1>
         </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 
 import Layout from "./components/Layout/Layout";
@@ -14,8 +14,17 @@ import {
   MyProfile
 } from "./pages/PageSrc";
 import { Switch, Route } from "react-router-dom";
+import * as actionCreators from "./store/actions/user"
+import { useDispatch } from "react-redux";
 
 function App() {
+  const dispatch = useDispatch()
+  const autoAuthHandler = () => dispatch(actionCreators.AutoAuthHandler())
+
+  useEffect(() => {
+    autoAuthHandler()
+  }, [])
+
   return (
     <Layout>
       <Switch>

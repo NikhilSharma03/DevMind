@@ -7,7 +7,6 @@ const initialState = {
     id: null, 
     username: null,
     profileImage: null,
-    posts: [],
     signUp_error: null,
     logIn_error: null
 }
@@ -23,7 +22,6 @@ const reducer = (state = initialState, actions) => {
                 id: actions.user._id, 
                 username: actions.user.username,
                 profileImage: actions.user.profileImage,
-                posts: actions.user.posts
             }
 
         case actionTypes.USER_SIGN_UP_ERROR: 
@@ -41,7 +39,6 @@ const reducer = (state = initialState, actions) => {
                 id: actions.user._id, 
                 username: actions.user.username,
                 profileImage: actions.user.profileImage,
-                posts: actions.user.posts
             }
         
         case actionTypes.USER_LOG_IN_ERROR: 
@@ -49,6 +46,30 @@ const reducer = (state = initialState, actions) => {
                 ...state,
                 logIn_error : actions.error
             }
+
+        case actionTypes.USER_LOG_OUT:
+            return {
+                token: null,
+                bio: null,
+                email: null,
+                id: null, 
+                username: null,
+                profileImage: null,
+                signUp_error: null,
+                logIn_error: null
+            }
+
+        case actionTypes.USER_AUTO_AUTH:
+            return {
+                ...state,
+                token: actions.token,
+                bio: actions.bio,
+                email: actions.email,
+                id: actions.id, 
+                username: actions.username,
+                profileImage: actions.profileImage,
+            }
+
         default: 
             return state
     }

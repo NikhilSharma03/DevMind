@@ -46,7 +46,7 @@ exports.signUp = async (req, res) => {
         email,
         password : hashedPassword,
         bio,
-        profileImage: isImageAttached ? req.file.path: "https://www.pikpng.com/pngl/m/80-805068_my-profile-icon-blank-profile-picture-circle-clipart.png",
+        profileImage: isImageAttached ? req.file.path: "uploads/defaultprofile.png",
         posts: []
     })
 
@@ -59,7 +59,7 @@ exports.signUp = async (req, res) => {
     // jwt TOKEN
     let jwtToken = jwt.sign({userID: newUser._id, email: newUser.email, expiresIn: +Date.now() + 60*60*1000}, process.env.JWT_SECRET_KEY, { expiresIn: '1h'})
 
-    res.status(201).json({message: "Created Successfully", user: newUser, token: jwtToken})
+    res.status(201).json({message: "Created Successfully", user: newUser, token: jwtToken, expiresIn: Date.now() + 60*60*1000})
 }
 
 exports.login = async (req, res) => {
@@ -88,7 +88,7 @@ exports.login = async (req, res) => {
     // jwt TOKEN
     let jwtToken = jwt.sign({userID: user._id, email: user.email, expiresIn: +Date.now() + 60*60*1000}, process.env.JWT_SECRET_KEY, { expiresIn: '1h'})
 
-    res.status(200).json({message: "Login Successfully", user, token: jwtToken})
+    res.status(200).json({message: "Login Successfully", user, token: jwtToken, expiresIn: Date.now() + 60*60*1000})
 }
 
 exports.updateUserByID = async (req, res) => {
