@@ -33,7 +33,7 @@ function App() {
         <Route exact path="/feed" component={Feed} />
         <Route exact path="/my_profile" component={MyProfile} />
         <Route exact path="/profile/:id" component={UserProfile} />
-        <Route exact path="/update_post" component={UpdatePost} />
+        <Route exact path="/update_post/:id" component={UpdatePost} />
         <Route exact path="/create_post" component={AddPost} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/logout" component={LogOut} />

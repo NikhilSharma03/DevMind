@@ -3,6 +3,7 @@ import "./PostCard.css";
 import Src from "./../../shared/ImageSource";
 import SvgSrc from "./../../shared/SvgSrc";
 import DeleteModal from './../Modal/DeleteModal'
+import { Link } from "react-router-dom";
 
 const PostCard = ({postDetails, creator}) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false)
@@ -31,6 +32,9 @@ const PostCard = ({postDetails, creator}) => {
           <h1>{creator}</h1>
         </div>
         <div className="postcard__container--topbar__delete" onClick={onDeleteHandler}>
+          <Link to={`/update_post/${postDetails._id}`}>
+            <SvgSrc.Edit/>
+          </Link>
           <SvgSrc.Delete/>
         </div>
       </div>

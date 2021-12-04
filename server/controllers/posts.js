@@ -107,7 +107,7 @@ exports.updatePostByPostID = async (req,res) => {
 
     const user = await User.findById(post.creator)
     // JWT Verification
-    let isUserVerified = jwtVerification(req, res, user.email, post.creator)
+    let isUserVerified = jwtVerification(req, res, user.email, post.creator.toString())
     if(!isUserVerified) {
         return res.status(403).json({message: "Unauthorized User"})  
     }
