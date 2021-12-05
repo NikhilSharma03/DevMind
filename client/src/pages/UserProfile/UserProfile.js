@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./UserProfile.css";
 import PostCard from "./../../components/PostCard/PostCard";
 import axios from "axios"
+import { useSelector } from "react-redux"
 
 const UserProfile = (props) => {
   const [email, setEmail] = useState("")
@@ -10,6 +11,7 @@ const UserProfile = (props) => {
   const [profileImage, setProfileImage] = useState("")
   const [username, setUsername] = useState("")
   const [error, setError] = useState(null)
+  const userID = useSelector(state => state.user.id)
 
   useEffect(() => {
     const userID = props.match.params.id
@@ -50,7 +52,7 @@ const UserProfile = (props) => {
         </div>
 
         <div className="userprofile__posts">
-          {posts.length <= 0 ? <h1 className="userprofile__post--error">No Posts</h1> : posts.map(item => <PostCard postDetails={item} creator={username}/>)}
+          {posts.length <= 0 ? <h1 className="userprofile__post--error">No Posts</h1> : posts.map(item => <PostCard key={item.creator} isAuthor={item.creator === userID} postDetails={item} creator={username}/>)}
         </div>
       </div>
       </React.Fragment>

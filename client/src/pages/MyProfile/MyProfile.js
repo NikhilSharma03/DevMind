@@ -24,7 +24,7 @@ const MyProfile = (props) => {
       axios.get(`${process.env.REACT_APP_API}/users/${userID}`).then(res => {
         setPosts(res.data.user.posts)
       }).catch(err => {
-        console.log(err.response.data.message)
+        alert(err.response.data.message)
       })
     }
   }, [])
@@ -39,7 +39,7 @@ const MyProfile = (props) => {
       axios.delete(`${process.env.REACT_APP_API}/users/${userID}`, {headers: {token: `Bearer ${token}`}}).then(res => {
         setPosts(res.data.user.posts)
       }).catch(err => {
-        console.log(err)
+        alert(err)
       })
       setShowDeleteModal(false)
       onLogOutHandler()
@@ -72,7 +72,7 @@ const MyProfile = (props) => {
         </div>
 
         <div className="userprofile__posts">
-          {posts.length <= 0 ? <h1 className="userprofile__post--error">No Posts</h1> : posts.map(item => <PostCard postDetails={item} creator={username}/>)}
+          {posts.length <= 0 ? <h1 className="userprofile__post--error">No Posts</h1> : posts.map(item => <PostCard key={item.creator} isAuthor={item.creator === userID} postDetails={item} creator={username}/>)}
         </div>
       </div>
       </React.Fragment>

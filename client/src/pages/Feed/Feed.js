@@ -7,11 +7,12 @@ import { Redirect } from 'react-router'
 
 const Feed = () => {
   const [posts, setPosts] = useState([])
+  const userID = useSelector(state => state.user.id)
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_API}/posts`).then(res => {
       setPosts(res.data.posts)
-    }).catch(err => console.log(err))
+    }).catch(err => alert(err))
   }, [])
 
   const token = useSelector(state => state.user.token)
@@ -21,7 +22,7 @@ const Feed = () => {
 
   return <section className="feed__container">
     <h1 className="feed__container--head">Your Feed</h1>
-    {posts.length <= 0 ? <h1 className="userprofile__post--error">No Posts</h1> : posts.map(item => <PostCard postDetails={item} creator={item.creator.username}/>)}
+    {posts.length <= 0 ? <h1 className="userprofile__post--error">No Posts</h1> : posts.map(item => <PostCard key={item.creator._id} isAuthor={item.creator._id === userID} postDetails={item} creator={item.creator.username}/>)}
   </section>;
 };
 
