@@ -16,9 +16,10 @@ const UserProfile = (props) => {
   useEffect(() => {
     const userID = props.match.params.id
     axios.get(`${process.env.REACT_APP_API}/users/${userID}`).then(res => {
+      const posts = res.data.user.posts.reverse()
       setBio(res.data.user.bio)
       setEmail(res.data.user.email)
-      setPosts(res.data.user.posts)
+      setPosts(posts)
       setProfileImage(res.data.user.profileImage)
       setUsername(res.data.user.username)
     }).catch(err => {
@@ -52,7 +53,7 @@ const UserProfile = (props) => {
         </div>
 
         <div className="userprofile__posts">
-          {posts.length <= 0 ? <h1 className="userprofile__post--error">No Posts</h1> : posts.map(item => <PostCard key={item.creator} isAuthor={item.creator === userID} postDetails={item} creator={username}/>)}
+          {posts.length <= 0 ? <h1 className="userprofile__post--error">No Posts</h1> : posts.map(item => <PostCard key={item._id} isAuthor={item.creator === userID} postDetails={item} creator={username}/>)}
         </div>
       </div>
       </React.Fragment>

@@ -8,7 +8,7 @@ import DeleteModal from "../../components/Modal/DeleteModal";
 import * as actionCreators from "./../../store/actions/user"
 import { useDispatch } from "react-redux"
 
-const MyProfile = (props) => {
+const MyProfile = () => {
   const token = useSelector(state => state.user.token)
   const userID = useSelector(state => state.user.id)
   const email = useSelector(state => state.user.email)
@@ -22,7 +22,8 @@ const MyProfile = (props) => {
   useEffect(() => {
     if(userID){
       axios.get(`${process.env.REACT_APP_API}/users/${userID}`).then(res => {
-        setPosts(res.data.user.posts)
+        const posts = res.data.user.posts.reverse()
+        setPosts(posts)
       }).catch(err => {
         alert(err.response.data.message)
       })
@@ -72,7 +73,7 @@ const MyProfile = (props) => {
         </div>
 
         <div className="userprofile__posts">
-          {posts.length <= 0 ? <h1 className="userprofile__post--error">No Posts</h1> : posts.map(item => <PostCard key={item.creator} isAuthor={item.creator === userID} postDetails={item} creator={username}/>)}
+          {posts.length <= 0 ? <h1 className="userprofile__post--error">No Posts</h1> : posts.map(item => <PostCard key={item._id} isAuthor={item.creator === userID} postDetails={item} creator={username}/>)}
         </div>
       </div>
       </React.Fragment>

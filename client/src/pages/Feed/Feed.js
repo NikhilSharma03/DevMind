@@ -11,7 +11,8 @@ const Feed = () => {
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_API}/posts`).then(res => {
-      setPosts(res.data.posts)
+      const post = res.data.posts.reverse()
+      setPosts(post)
     }).catch(err => alert(err))
   }, [])
 
@@ -22,7 +23,7 @@ const Feed = () => {
 
   return <section className="feed__container">
     <h1 className="feed__container--head">Your Feed</h1>
-    {posts.length <= 0 ? <h1 className="userprofile__post--error">No Posts</h1> : posts.map(item => <PostCard key={item.creator._id} isAuthor={item.creator._id === userID} postDetails={item} creator={item.creator.username}/>)}
+    {posts.length <= 0 ? <h1 className="userprofile__post--error">No Posts</h1> : posts.map(item => <PostCard key={item._id} isAuthor={item.creator._id === userID} postDetails={item} creator={item.creator.username}/>)}
   </section>;
 };
 

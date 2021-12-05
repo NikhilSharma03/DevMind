@@ -55,6 +55,7 @@
   margin-bottom: 5rem;
   font-size: 1.5rem;
   letter-spacing: 1px;
+  overflow-wrap: break-word;
   padding: 1rem 0.5rem;
 }
 
