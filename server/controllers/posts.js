@@ -27,7 +27,7 @@ exports.getPostByPostID = async (req,res) => {
 
 exports.getPostsByUserID = async (req,res) => {
     const userID = req.params.userID
-    const posts = await Post.findPostByUserID(userID).populate("creator")
+    const posts = await Post.findPostByUserID(userID)
     
     if (posts.length === 0){ 
         return res.status(404).json({message:"No post found with provided user ID"})
@@ -62,15 +62,20 @@ exports.createPost = async (req,res) => {
 
     const newPost = new Post({
         content,
-        imageURL: isImageAttached ? "http://localhost:5000"+req.file.path : "",
+        imageURL: isImageAttached ? req.file.path : "",
         creator: user,
         comments: [],
         likes: []
     })
-
+    
     try {
         await newPost.save()
-        user.posts.push(newPost)
+    } catch (error){
+        return res.status(500).json({message: error.message})
+    }
+
+    try {
+        user.posts.push(newPost._id)
         await user.save()
     } catch (error){
         return res.status(500).json({message: error.message})
@@ -102,7 +107,7 @@ exports.updatePostByPostID = async (req,res) => {
 
     const user = await User.findById(post.creator)
     // JWT Verification
-    let isUserVerified = jwtVerification(req, res, user.email, post.creator)
+    let isUserVerified = jwtVerification(req, res, user.email, post.creator.toString())
     if(!isUserVerified) {
         return res.status(403).json({message: "Unauthorized User"})  
     }
@@ -132,7 +137,7 @@ exports.deletePostByPostID = async (req,res) => {
     const user = await User.findById(post.creator)
     user.posts = user.posts.filter(id => id.toString() != post._id.toString())
     // JWT Verification
-    let isUserVerified = jwtVerification(req, res, user.email, post.creator)
+    let isUserVerified = jwtVerification(req, res, user.email, post.creator.toString())
     if(!isUserVerified) {
         return res.status(403).json({message: "Unauthorized User"})  
     }

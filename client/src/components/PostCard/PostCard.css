@@ -24,6 +24,7 @@
 
 .postcard__container--topbar__delete {
   margin-right: 1.25rem;
+  display: flex;
 }
 
 .postcard__container--username {
@@ -54,6 +55,7 @@
   margin-bottom: 5rem;
   font-size: 1.5rem;
   letter-spacing: 1px;
+  overflow-wrap: break-word;
   padding: 1rem 0.5rem;
 }
 

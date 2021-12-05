@@ -2,8 +2,15 @@ import React from 'react'
 import "./Comment.css"
 import PostCard from './../../components/PostCard/PostCard'
 import SvgSrc  from '../../shared/SvgSrc'
+import { Redirect } from 'react-router'
+import { useSelector } from "react-redux";
 
 const Comment = () => {
+    const token = useSelector(state => state.user.token)
+    if(!token) {
+      return <Redirect to="/login" />
+    }
+
     return (
         <div className="comment__container">
             <div className="comment__main">

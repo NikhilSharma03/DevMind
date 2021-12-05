@@ -1,6 +1,10 @@
 const jwt = require("jsonwebtoken")
 
 module.exports = (req, res, next) => {
+    if(req.method === "OPTIONS"){
+        return next()
+    }
+
     const tokenHeader = req.headers.token
     if(tokenHeader){
         let token = tokenHeader.split(" ")[1]

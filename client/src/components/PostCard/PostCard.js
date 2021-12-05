@@ -3,9 +3,13 @@ import "./PostCard.css";
 import Src from "./../../shared/ImageSource";
 import SvgSrc from "./../../shared/SvgSrc";
 import DeleteModal from './../Modal/DeleteModal'
+import { Link } from "react-router-dom";
+import axios from "axios";
+import { useSelector} from "react-redux"
 
-const PostCard = () => {
+const PostCard = ({postDetails, creator, isAuthor}) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const token = useSelector(state => state.user.token)
 
   const scrollToTop = () =>{
     window.scrollTo({
@@ -19,37 +23,55 @@ const PostCard = () => {
     setShowDeleteModal(true)
   }
 
+  const deletePostHandler = () => {
+    axios.delete(process.env.REACT_APP_API+"/posts/"+postDetails._id, { headers: {token: "Bearer "+token}}).then(res => {
+      window.location.reload(false);
+    }).catch(err => {
+      alert(err)
+    })
+    setShowDeleteModal(false)
+
+  }
 
   return (
     <div className="postcard__container">
-      <DeleteModal showModal={showDeleteModal} onClose={() => setShowDeleteModal(false)}/>
+      <DeleteModal showModal={showDeleteModal} onDelete={deletePostHandler} onClose={() => setShowDeleteModal(false)}/>
       <div className="postcard__container--topbar">
         <div className="postcard__container--username">
           <figcaption className="postcard__username--image">
             <img src={Src.sdProfile} alt="Post Image" />
           </figcaption>
-          <h1>UserName</h1>
+          <h1>{creator}</h1>
         </div>
-        <div className="postcard__container--topbar__delete" onClick={onDeleteHandler}>
-          <SvgSrc.Delete/>
-        </div>
+        {
+          isAuthor && (
+           <div className="postcard__container--topbar__delete" >
+            <Link to={`/update_post/${postDetails._id}`}>
+              <SvgSrc.Edit/>
+            </Link>
+            <div onClick={onDeleteHandler} style={{cursor: "pointer"}}>
+              <SvgSrc.Delete/>
+            </div>
+           </div>
+        )}
       </div>
       <div className="postcard__container--content">
         <p className="postcard__content--para">
-          Paraphrasing-Tool uses intelligent, decision making software to figure
+          {postDetails.content}
         </p>
+        {postDetails.imageURL &&
         <figcaption className="postcard__content--image">
-          <img src={Src.homeBanner} alt="Post Image" />
-        </figcaption>
+           <img src={process.env.REACT_APP_IMAGE_PATH + postDetails.imageURL} alt="Post Image" />
+        </figcaption>}
       </div>
       <div className="postcard__container--actionbtns">
         <div className="postcard__actionbtns--main">
           <SvgSrc.Heart />
-          <span>3</span>
+          <span>{postDetails.likes.length}</span>
         </div>
         <div className="postcard__actionbtns--main">
           <SvgSrc.Comment />
-          <span>3</span>
+          <span>{postDetails.comments.length}</span>
         </div>
       </div>
     </div>

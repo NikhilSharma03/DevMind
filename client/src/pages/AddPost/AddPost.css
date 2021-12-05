@@ -133,6 +133,17 @@
   border-radius: 4px;
 }
 
+.addpost--image__picker p {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.25rem;
+  color: #747474;
+  padding: 10px;
+  border: 1px solid #747474;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+}
+
 .addpost--image__picker label {
   color: white;
   cursor: pointer;

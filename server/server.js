@@ -2,13 +2,15 @@ const express = require("express")
 const app = express()
 const bodyParser = require("body-parser")
 const mongoose = require("mongoose")
-const cors = require('cors')
+const cors = require("cors")
+
+// CORS
+app.use(cors())
 
 // Middlewares
 require('dotenv').config()
 app.use(bodyParser.json())
 app.use('/uploads', express.static('uploads'));
-app.use(cors())
 
 // Routers
 const postRoutes = require("./routes/posts")
