@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 const PostCard = ({postDetails, creator}) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const token = useSelector(state => state.user.token)
+  const userID = useSelector(state => state.user.id)
 
   const scrollToTop = () =>{
     window.scrollTo({
@@ -30,8 +31,8 @@ const PostCard = ({postDetails, creator}) => {
       console.log(err)
     })
     setShowDeleteModal(false)
+    
   }
-
 
   return (
     <div className="postcard__container">
@@ -43,14 +44,17 @@ const PostCard = ({postDetails, creator}) => {
           </figcaption>
           <h1>{creator}</h1>
         </div>
-        <div className="postcard__container--topbar__delete" >
-          <Link to={`/update_post/${postDetails._id}`}>
-            <SvgSrc.Edit/>
-          </Link>
-          <div onClick={onDeleteHandler} style={{cursor: "pointer"}}>
-            <SvgSrc.Delete/>
-          </div>
-        </div>
+        {
+          userID === postDetails.creator._id && (
+           <div className="postcard__container--topbar__delete" >
+            <Link to={`/update_post/${postDetails._id}`}>
+              <SvgSrc.Edit/>
+            </Link>
+            <div onClick={onDeleteHandler} style={{cursor: "pointer"}}>
+              <SvgSrc.Delete/>
+            </div>
+           </div>
+        )}
       </div>
       <div className="postcard__container--content">
         <p className="postcard__content--para">
