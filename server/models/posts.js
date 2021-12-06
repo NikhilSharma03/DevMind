@@ -4,12 +4,12 @@ const postSchema = new Schema({
     content: { type:String, required: true },
     imageURL: { type:String },
     likes: [{ 
-        creator: {type: Schema.Types.ObjectId, ref: "Users", required: true},
+        creator: {type: Schema.Types.ObjectId, ref: "Users"},
         createdAt: {type: Date, default: Date.now()}
     }],
     comments: [{ 
         content: { type:String, required: true },
-        creator: {type: Schema.Types.ObjectId, ref: "Users", required: true},
+        creator: {type: Schema.Types.ObjectId, ref: "Users"},
         createdAt: {type: Date, default: Date.now()}
     }],
     creator: {type: Schema.Types.ObjectId, ref: "Users", required: true},
