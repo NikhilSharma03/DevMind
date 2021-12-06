@@ -2,12 +2,14 @@
   "name": "devmind",
   "version": "1.0.0",
   "description": "DevMind is a platform for developers to share their ideas and thoughts with developers all over the world",
+  "homepage": "https://nikhilsharma03.github.io/DevMind",
   "main": "index.js",
   "scripts": {
     "client:dev": "cd client && npm start",
-    "client:build": "cd client && npm run build",
+    "client:build": "cd client && npm run build && mv build ./..",
     "server:dev": "cd server && npm run server:dev",
-    "start": "cd server && npm run server"
+    "start": "cd server && npm run server",
+    "deploy": "gh-pages -d build"
   },
   "repository": {
     "type": "git",
@@ -28,5 +30,7 @@
   "bugs": {
     "url": "https://github.com/NikhilSharma03/DevMind/issues"
   },
-  "homepage": "https://github.com/NikhilSharma03/DevMind#readme"
+  "devDependencies": {
+    "gh-pages": "^3.2.3"
+  }
 }
