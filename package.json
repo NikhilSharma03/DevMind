@@ -8,8 +8,7 @@
     "client:dev": "cd client && npm start",
     "client:build": "cd client && npm run build && mv build ./..",
     "server:dev": "cd server && npm run server:dev",
-    "start": "cd server && npm run server",
-    "deploy": "gh-pages -d build"
+    "start": "cd server && npm run server"
   },
   "repository": {
     "type": "git",
@@ -29,8 +28,5 @@
   },
   "bugs": {
     "url": "https://github.com/NikhilSharma03/DevMind/issues"
-  },
-  "devDependencies": {
-    "gh-pages": "^3.2.3"
   }
 }
