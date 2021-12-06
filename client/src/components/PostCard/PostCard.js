@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useSelector} from "react-redux"
 
-const PostCard = ({postDetails, creator, isAuthor, likeHandler}) => {
+const PostCard = ({postDetails, creator, isAuthor, likeHandler,hideLikesComments}) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const token = useSelector(state => state.user.token)
   const id = useSelector(state => state.user.id)
@@ -64,16 +64,20 @@ const PostCard = ({postDetails, creator, isAuthor, likeHandler}) => {
            <img src={process.env.REACT_APP_IMAGE_PATH + postDetails.imageURL} alt="Post Image" />
         </figcaption>}
       </div>
-      <div className="postcard__container--actionbtns">
-        <div className="postcard__actionbtns--main">
-          <SvgSrc.Heart isLiked={postDetails.likes.includes(id)} onClick={likeHandler} />
-          <span>{postDetails.likes.length}</span>
+      {!hideLikesComments &&
+        <div className="postcard__container--actionbtns">
+          <div className="postcard__actionbtns--main">
+            <SvgSrc.Heart isLiked={postDetails.likes.includes(id)} onClick={likeHandler} />
+            <span>{postDetails.likes.length}</span>
+          </div>
+          <div className="postcard__actionbtns--main">
+            <Link to={"/comment/" + postDetails._id}>
+              <SvgSrc.Comment />
+            </Link>
+            <span>{postDetails.comments.length}</span>
+          </div>
         </div>
-        <div className="postcard__actionbtns--main">
-          <SvgSrc.Comment />
-          <span>{postDetails.comments.length}</span>
-        </div>
-      </div>
+      }
     </div>
   );
 };

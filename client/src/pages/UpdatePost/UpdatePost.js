@@ -33,7 +33,9 @@ const UpdatePost = (props) => {
     axios.patch(process.env.REACT_APP_API + "/posts/"+ props.match.params.id, updateData, {headers: {token: "Bearer "+token}}).then(res => {
       props.history.push("/feed")
     }).catch(err => {
-      alert(err.response)
+      if(err.response){
+        alert(err.response.data.message)
+    }
     })
   }
 

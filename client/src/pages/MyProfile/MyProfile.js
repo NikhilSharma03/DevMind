@@ -25,7 +25,9 @@ const MyProfile = () => {
         const posts = res.data.user.posts.reverse()
         setPosts(posts)
       }).catch(err => {
-        alert(err.response.data.message)
+        if(err.response){
+          alert(err.response.data.message)
+      }
       })
     }
   }, [])
@@ -44,6 +46,20 @@ const MyProfile = () => {
       })
       setShowDeleteModal(false)
       onLogOutHandler()
+  }
+
+  const onLikeHandler = (postID) => {
+    axios.post(`${process.env.REACT_APP_API}/posts/likes/${postID}`, {userID}, {headers: {token: "Bearer "+token}}).then(res => {
+      let postID = res.data.post._id, newLikes = res.data.post.likes
+      let newPostsArray = [...posts]
+      const postIndex = newPostsArray.findIndex(item => item._id === postID)
+      newPostsArray[postIndex].likes = newLikes
+      setPosts(newPostsArray) 
+    }).catch(err => {
+      if(err.response){
+        alert(err.response.data.message)
+    }
+    })
   }
 
   return (
@@ -73,7 +89,7 @@ const MyProfile = () => {
         </div>
 
         <div className="userprofile__posts">
-          {posts.length <= 0 ? <h1 className="userprofile__post--error">No Posts</h1> : posts.map(item => <PostCard key={item._id} isAuthor={item.creator === userID} postDetails={item} creator={username}/>)}
+          {posts.length <= 0 ? <h1 className="userprofile__post--error">No Posts</h1> : posts.map(item => <PostCard key={item._id} likeHandler={onLikeHandler.bind(this, item._id)} isAuthor={item.creator === userID} postDetails={item} creator={username}/>)}
         </div>
       </div>
       </React.Fragment>

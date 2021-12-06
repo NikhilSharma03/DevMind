@@ -20,7 +20,7 @@ exports.getPostByPostID = async (req,res) => {
     if (!post){ 
         return res.status(404).json({message:"No post found with provided ID"})
     }
-    post = await post.populate("creator","email username")
+    post = await post.populate("creator comments","email username")
 
     res.json({message:"Found post successfully", post})
 }

@@ -9,8 +9,6 @@ router.get("/:postID", commentsController.getCommentsByPostID)
 
 router.post("/:postID", JWTAuthMiddleware, commentsController.postCommentByPostID)
 
-router.patch("/:postID/:commentID", JWTAuthMiddleware, commentsController.updateCommentByCommentID)
-
 router.delete("/:postID/:commentID", JWTAuthMiddleware, commentsController.deleteCommentByCommentID)
 
 

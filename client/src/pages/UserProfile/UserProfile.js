@@ -12,6 +12,7 @@ const UserProfile = (props) => {
   const [username, setUsername] = useState("")
   const [error, setError] = useState(null)
   const userID = useSelector(state => state.user.id)
+  const token = useSelector(state => state.user.token)
 
   useEffect(() => {
     const userID = props.match.params.id
@@ -23,9 +24,27 @@ const UserProfile = (props) => {
       setProfileImage(res.data.user.profileImage)
       setUsername(res.data.user.username)
     }).catch(err => {
-      setError(err.response.data.message)
+      if(err.response){
+        setError(err.response.data.message)
+      }
     })
   }, [])
+
+  const onLikeHandler = (postID) => {
+    axios.post(`${process.env.REACT_APP_API}/posts/likes/${postID}`, {userID}, {headers: {token: "Bearer "+token}}).then(res => {
+      let postID = res.data.post._id, newLikes = res.data.post.likes
+      let newPostsArray = [...posts]
+      const postIndex = newPostsArray.findIndex(item => item._id === postID)
+      newPostsArray[postIndex].likes = newLikes
+      setPosts(newPostsArray) 
+    }).catch(err => {
+      if(err.response){
+        if(err.response){
+          alert(err.response.data.message)
+        }
+      }
+    })
+  }
 
   return (
     <section className="userprofile__container">
@@ -53,7 +72,7 @@ const UserProfile = (props) => {
         </div>
 
         <div className="userprofile__posts">
-          {posts.length <= 0 ? <h1 className="userprofile__post--error">No Posts</h1> : posts.map(item => <PostCard key={item._id} isAuthor={item.creator === userID} postDetails={item} creator={username}/>)}
+          {posts.length <= 0 ? <h1 className="userprofile__post--error">No Posts</h1> : posts.map(item => <PostCard likeHandler={onLikeHandler.bind(this, item._id)} key={item._id} isAuthor={item.creator === userID} postDetails={item} creator={username}/>)}
         </div>
       </div>
       </React.Fragment>
