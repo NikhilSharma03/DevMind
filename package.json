@@ -1,0 +1,21 @@
+{
+  "name": "devmind",
+  "version": "1.0.0",
+  "description": "DevMind is a platform for developers to share their ideas and thoughts with developers all over the world",
+  "main": "index.js",
+  "scripts": {
+    "client:dev": "cd client && npm start",
+    "client:build": "cd client && npm run build && mv build ./../server",
+    "server:dev": "cd server && npm run server:dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NikhilSharma03/DevMind.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NikhilSharma03/DevMind/issues"
+  },
+  "homepage": "https://github.com/NikhilSharma03/DevMind#readme"
+}
