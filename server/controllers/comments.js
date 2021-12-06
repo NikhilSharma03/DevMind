@@ -9,7 +9,7 @@ exports.getCommentsByPostID = async (req,res) => {
     if (!isObjectID) {
         return res.status(404).json({message:"the provided id is invalid"})
     }
-    const post = await Post.findById(postID).populate("creator", "username email")
+    const post = await Post.findById(postID).populate("comments.creator", "username email")
     if(!post) {
         return res.status(404).json({message: "No post found"})
     }
@@ -24,21 +24,19 @@ exports.postCommentByPostID = async (req, res) => {
     if (!isObjectID) {
         return res.status(404).json({message:"the provided id is invalid"})
     }
-    const post = await Post.findById(postID).populate("creator", "username email _id")
+    const post = await Post.findById(postID).populate("creator comments.creator", "username email _id")
 
     if(!post) {
         return res.status(404).json({message: "No post found"})
     }
+    const { content, creator } = req.body
+    const user = await User.findById(creator)
 
     // JWT Verification
-    let isUserVerified = jwtVerification(req, res, post.creator.email, post.creator._id)
+    let isUserVerified = jwtVerification(req, res, user.email, user._id.toString())
     if(!isUserVerified) {
         return res.status(403).json({message: "Unauthorized User"})  
     }
-
-    const { content, creator } = req.body
-
-    const user = await User.findById(creator)
 
     const newComment = {
         content,
@@ -46,45 +44,6 @@ exports.postCommentByPostID = async (req, res) => {
     }
 
     post.comments.push(newComment)
-
-    try {
-        await post.save()
-    } catch (error){
-        return res.status(500).json({message: error.message})
-    }
-
-    res.json({post})
-}
-
-exports.updateCommentByCommentID = async (req, res) => {
-    const {content} = req.body
-    let postID = req.params.postID, commentID = req.params.commentID;
-    let isObjectID = isValidObjectId(postID)
-    if (!isObjectID) {
-        return res.status(404).json({message:"the provided id is invalid"})
-    }
-    isObjectID = isValidObjectId(commentID)
-    if (!isObjectID) {
-        return res.status(404).json({message:"the provided id is invalid"})
-    }
-
-    const post = await Post.findById(postID).populate("creator", "username email _id")
-    if(!post) {
-        return res.status(404).json({message: "No post found"})
-    }
-
-    // JWT Verification
-    let isUserVerified = jwtVerification(req, res, post.creator.email, post.creator._id)
-    if(!isUserVerified) {
-        return res.status(403).json({message: "Unauthorized User"})  
-    }
-
-    const foundComment = post.comments.find(item => item._id.toString() === commentID)
-    if(!foundComment){
-        return res.status(404).json({message: "No comment found"})
-    }
-
-    foundComment.content = content
 
     try {
         await post.save()
@@ -106,24 +65,29 @@ exports.deleteCommentByCommentID = async (req, res) => {
         return res.status(404).json({message:"the provided id is invalid"})
     }
 
-    const post = await Post.findById(postID).populate("creator", "username email _id")
+    const post = await Post.findById(postID).populate("creator comments.creator", "username email _id")
     if(!post) {
         return res.status(404).json({message: "No post found"})
     }
 
+    const comment = post.comments.find(item => item._id.toString() === commentID)
+    if(!comment){
+        return res.status(404).json({message: "No comment found"})
+    }
+
     // JWT Verification
-    let isUserVerified = jwtVerification(req, res, post.creator.email, post.creator._id)
+    let isUserVerified = jwtVerification(req, res, comment.creator.email, comment.creator._id.toString())
     if(!isUserVerified) {
         return res.status(403).json({message: "Unauthorized User"})  
     }
-
-    post.comments = post.comments.filter(id => id._id.toString() != commentID)
-
+    post.comments = post.comments.filter(item => item._id.toString() !== commentID)
     try {
         await post.save()
     } catch (error){
         return res.status(500).json({message: error.message})
     }
 
-    res.status(200).json({message: "Comment Deleted Successfully"})
+    const comments = await Post.findById(postID).populate("creator comments.creator", "username email _id")
+
+    res.status(200).json({message: "Comment Deleted Successfully", comments: comments.comments})
 }

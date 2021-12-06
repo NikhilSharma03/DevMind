@@ -29,7 +29,9 @@ const Feed = () => {
       newPostsArray[postIndex].likes = newLikes
       setPosts(newPostsArray) 
     }).catch(err => {
-      console.log(err.response)
+      if(err.response){
+        alert(err.response.data.message)
+    }
     })
   }
 

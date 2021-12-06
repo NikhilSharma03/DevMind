@@ -29,7 +29,7 @@ function App() {
   return (
     <Layout>
       <Switch>
-        <Route exact path="/comment" component={Comment} />
+        <Route exact path="/comment/:id" component={Comment} />
         <Route exact path="/feed" component={Feed} />
         <Route exact path="/my_profile" component={MyProfile} />
         <Route exact path="/profile/:id" component={UserProfile} />

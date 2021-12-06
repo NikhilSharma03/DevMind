@@ -25,7 +25,9 @@ const AddPost = (props) => {
     axios.post(`${process.env.REACT_APP_API}/posts`, formData, { headers: { token: "Bearer "+ token }}).then(res => {
       props.history.push("/feed")
     }).catch(err => {
-      alert(err.response.data.message)
+      if(err.response){
+        alert(err.response.data.message)
+      }
     })
   }
 
