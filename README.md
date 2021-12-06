@@ -12,7 +12,6 @@
  
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=95)](https://github.com/NikhilSharma03/DevMind) 
 [![Build by Nikhil](https://img.shields.io/badge/Built%20by-Nikhil-Green)](https://github.com/NikhilSharma03/DevMind) 
-[![Maintenance](https://img.shields.io/maintenance/yes/2021)](https://github.com/NikhilSharma03/DevMind)
 
 </div>
 
