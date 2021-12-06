@@ -2,7 +2,7 @@
   "name": "devmind",
   "version": "1.0.0",
   "description": "DevMind is a platform for developers to share their ideas and thoughts with developers all over the world",
-  "homepage": "https://nikhilsharma03.github.io/DevMind",
+  "homepage": "https://devmind-app.web.app/",
   "main": "index.js",
   "scripts": {
     "client:dev": "cd client && npm start",
