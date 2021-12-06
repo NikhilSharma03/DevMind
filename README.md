@@ -1,4 +1,4 @@
-[![DevMind](https://devmind-app.web.app)
+# DevMind
 
 <div align="center">  
 <br>
