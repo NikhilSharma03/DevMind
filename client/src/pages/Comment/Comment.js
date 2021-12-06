@@ -62,6 +62,8 @@ const Comment = (props) => {
         })
     }
 
+    console.log(userID, postComments)
+
     return (
         <div className="comment__container">
             <div className="comment__main">
@@ -80,9 +82,12 @@ const Comment = (props) => {
                             <div className="comment" key={item._id}>
                                 <div className="comment__header">
                                     <h1>{item.creator.username}</h1>
-                                    <div onClick={onCommentDeleteHandler.bind(this, item._id)} style={{cursor:"pointer"}}>
-                                        <SvgSrc.Delete fill="#777" />
-                                    </div>
+                                    {
+                                        userID === item.creator._id && (
+                                        <div onClick={onCommentDeleteHandler.bind(this, item._id)} style={{cursor:"pointer"}}>
+                                            <SvgSrc.Delete fill="#777" />
+                                        </div>
+                                    )}
                                 </div>
                                 <p>{item.content}</p>
                             </div>
