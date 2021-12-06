@@ -21,9 +21,22 @@ const Feed = () => {
     return <Redirect to="/login" />
   }
 
+  const onLikeHandler = (postID) => {
+    axios.post(`${process.env.REACT_APP_API}/posts/likes/${postID}`, {userID}, {headers: {token: "Bearer "+token}}).then(res => {
+      let postID = res.data.post._id, newLikes = res.data.post.likes
+      let newPostsArray = [...posts]
+      const postIndex = newPostsArray.findIndex(item => item._id === postID)
+      newPostsArray[postIndex].likes = newLikes
+      setPosts(newPostsArray) 
+    }).catch(err => {
+      console.log(err.response)
+    })
+  }
+
   return <section className="feed__container">
     <h1 className="feed__container--head">Your Feed</h1>
-    {posts.length <= 0 ? <h1 className="userprofile__post--error">No Posts</h1> : posts.map(item => <PostCard key={item._id} isAuthor={item.creator._id === userID} postDetails={item} creator={item.creator.username}/>)}
+    {posts.length <= 0 ? <h1 className="userprofile__post--error">No Posts</h1> : posts.map(item => <PostCard likeHandler={onLikeHandler.bind(this, item._id)}
+      key={item._id} isAuthor={item.creator._id === userID} postDetails={item} creator={item.creator.username}/>)}
   </section>;
 };
 

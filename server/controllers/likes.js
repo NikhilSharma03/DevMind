@@ -15,11 +15,13 @@ exports.postLikeHandler = async (req, res) => {
         return res.status(404).json({message: "No user found"})
     }
 
+    
     // JWT Verification
     let isUserVerified = jwtVerification(req, res, user.email, userID)
     if(!isUserVerified) {
         return res.status(403).json({message: "Unauthorized User"})  
     }
+
 
     isObjectID = isValidObjectId(req.params.postID)
     if (!isObjectID) {
@@ -30,7 +32,16 @@ exports.postLikeHandler = async (req, res) => {
         return res.status(404).json({message: "No post found"})
     }
 
-    let isAlreadyLiked = post.likes.find(item => item.creator === user._id)
+    const isLiked = (arr, id) => {
+        if(arr.length === 0){
+            return false
+        }
+        const isExist = arr.find(item => item._id.toString() === id)
+        return !!isExist
+    }
+
+    let isAlreadyLiked = isLiked(post.likes, userID)
+
     if(!isAlreadyLiked){
         // In case of not liked
         post.likes.push(user)
@@ -43,7 +54,8 @@ exports.postLikeHandler = async (req, res) => {
 
     } else {
         // In case of already liked
-        post.likes = post.likes.filter(item => item.creator !== user._id)
+        post.likes = post.likes.filter(item => item._id.toString() !== user._id.toString())
+
         try{
             await post.save()
         } catch (err) {
@@ -51,6 +63,6 @@ exports.postLikeHandler = async (req, res) => {
         }
     }
 
-    res.status(200).json({message: "success"})
+    res.status(200).json({message: "success", post})
 
 }

@@ -7,9 +7,10 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useSelector} from "react-redux"
 
-const PostCard = ({postDetails, creator, isAuthor}) => {
+const PostCard = ({postDetails, creator, isAuthor, likeHandler}) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const token = useSelector(state => state.user.token)
+  const id = useSelector(state => state.user.id)
 
   const scrollToTop = () =>{
     window.scrollTo({
@@ -30,7 +31,6 @@ const PostCard = ({postDetails, creator, isAuthor}) => {
       alert(err)
     })
     setShowDeleteModal(false)
-
   }
 
   return (
@@ -66,7 +66,7 @@ const PostCard = ({postDetails, creator, isAuthor}) => {
       </div>
       <div className="postcard__container--actionbtns">
         <div className="postcard__actionbtns--main">
-          <SvgSrc.Heart />
+          <SvgSrc.Heart isLiked={postDetails.likes.includes(id)} onClick={likeHandler} />
           <span>{postDetails.likes.length}</span>
         </div>
         <div className="postcard__actionbtns--main">
