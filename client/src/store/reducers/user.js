@@ -8,7 +8,8 @@ const initialState = {
     username: null,
     profileImage: null,
     signUp_error: null,
-    logIn_error: null
+    logIn_error: null,
+    loading: false
 }
 
 const reducer = (state = initialState, actions) => {
@@ -80,6 +81,18 @@ const reducer = (state = initialState, actions) => {
             return {
                 ...state,
                 signUp_error: null
+            }
+        
+        case actionTypes.START_LOADING:
+            return {
+                ...state,
+                loading: true
+            }
+
+        case actionTypes.STOP_LOADING:
+            return {
+                ...state,
+                loading: false
             }
 
         default: 

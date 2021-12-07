@@ -6,6 +6,7 @@ import { Link, Redirect } from "react-router-dom";
 import * as actionCreators from "./../../store/actions/user"
 import { useSelector, useDispatch } from "react-redux"
 import Modal from "./../../components/Modal/Modal"
+import Loader from "./../../components/Loader/Loader"
 
 const SignUp = () => {
   const [name, setName] = useState("")
@@ -15,6 +16,7 @@ const SignUp = () => {
   const [profileImage, setProfileImage] = useState(null)
   const error = useSelector(state => state.user.signUp_error)
   const token = useSelector(state => state.user.token)
+  const loading = useSelector(state => state.user.loading)
 
   const dispatch = useDispatch()
   const SignUpHandler = (name, email, password, bio, profileImage) => dispatch(actionCreators.SignUpHandler(name, email, password, bio, profileImage))
@@ -35,6 +37,10 @@ const SignUp = () => {
 
   if(token){
     return <Redirect to="/my_profile" />
+  }
+
+  if(loading){
+    return <Loader />
   }
 
   return (

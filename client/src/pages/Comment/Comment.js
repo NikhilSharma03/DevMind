@@ -5,6 +5,7 @@ import SvgSrc  from '../../shared/SvgSrc'
 import { Redirect } from 'react-router'
 import { useSelector } from "react-redux";
 import axios from 'axios'
+import Loader from "./../../components/Loader/Loader"
 
 const Comment = (props) => {
     const token = useSelector(state => state.user.token)
@@ -13,24 +14,35 @@ const Comment = (props) => {
     const [postComments, setPostComments] = useState([])
     const [comment, setComment] = useState("")
     const postID = props.match.params.id
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
+        setLoading(true)
         axios.get(process.env.REACT_APP_API + "/posts/"+postID).then(res => {
             setPost(res.data.post)
+            setLoading(false)
         }).catch(err => {
+            setLoading(false)
             if(err.response){
                 alert(err.response.data.message)
             }
+
         })
         axios.get(process.env.REACT_APP_API + "/posts/comments/"+postID).then(res => {
             const comments = [...res.data.comments.comments].reverse()
+            setLoading(false)
             setPostComments(comments)
         }).catch(err => {
+            setLoading(false)
             if(err.response){
                 alert(err.response.data.message)
             }
         })
     }, [])
+
+    if(loading){
+      return <Loader />
+    }
 
     const onCommentHandler = () => {
         if(comment.length === 0){

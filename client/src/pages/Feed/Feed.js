@@ -4,21 +4,32 @@ import PostCard from "./../../components/PostCard/PostCard";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { Redirect } from 'react-router'
+import Loader from "./../../components/Loader/Loader"
 
 const Feed = () => {
   const [posts, setPosts] = useState([])
   const userID = useSelector(state => state.user.id)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    setLoading(true)
     axios.get(`${process.env.REACT_APP_API}/posts`).then(res => {
       const post = res.data.posts.reverse()
       setPosts(post)
-    }).catch(err => alert(err))
+      setLoading(false)
+    }).catch(err => {
+      alert(err)
+      setLoading(false)
+    })
   }, [])
 
   const token = useSelector(state => state.user.token)
   if(!token) {
     return <Redirect to="/login" />
+  }
+
+  if(loading){
+    return <Loader />
   }
 
   const onLikeHandler = (postID) => {

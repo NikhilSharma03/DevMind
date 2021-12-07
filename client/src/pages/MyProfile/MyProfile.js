@@ -7,6 +7,7 @@ import axios from "axios";
 import DeleteModal from "../../components/Modal/DeleteModal";
 import * as actionCreators from "./../../store/actions/user"
 import { useDispatch } from "react-redux"
+import Loader from "./../../components/Loader/Loader"
 
 const MyProfile = () => {
   const token = useSelector(state => state.user.token)
@@ -18,13 +19,17 @@ const MyProfile = () => {
   const [posts, setPosts] = useState([])
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const dispatch = useDispatch()
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    setLoading(true)
     if(userID){
       axios.get(`${process.env.REACT_APP_API}/users/${userID}`).then(res => {
         const posts = res.data.user.posts.reverse()
         setPosts(posts)
+        setLoading(false)
       }).catch(err => {
+        setLoading(false)
         if(err.response){
           alert(err.response.data.message)
       }
@@ -36,12 +41,19 @@ const MyProfile = () => {
     return <Redirect to="/login" />
   }
 
+  if(loading){
+    return <Loader />
+  }
+
   const onLogOutHandler = () => dispatch(actionCreators.LogOutHandler())
 
   const deleteAccountHandler = () => {
+    setLoading(true)  
       axios.delete(`${process.env.REACT_APP_API}/users/${userID}`, {headers: {token: `Bearer ${token}`}}).then(res => {
         setPosts(res.data.user.posts)
+        setLoading(false)
       }).catch(err => {
+        setLoading(false)
         alert(err)
       })
       setShowDeleteModal(false)

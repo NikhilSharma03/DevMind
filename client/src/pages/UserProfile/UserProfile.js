@@ -3,6 +3,7 @@ import "./UserProfile.css";
 import PostCard from "./../../components/PostCard/PostCard";
 import axios from "axios"
 import { useSelector } from "react-redux"
+import Loader from "./../../components/Loader/Loader"
 
 const UserProfile = (props) => {
   const [email, setEmail] = useState("")
@@ -13,8 +14,10 @@ const UserProfile = (props) => {
   const [error, setError] = useState(null)
   const userID = useSelector(state => state.user.id)
   const token = useSelector(state => state.user.token)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    setLoading(true)
     const userID = props.match.params.id
     axios.get(`${process.env.REACT_APP_API}/users/${userID}`).then(res => {
       const posts = res.data.user.posts.reverse()
@@ -23,12 +26,18 @@ const UserProfile = (props) => {
       setPosts(posts)
       setProfileImage(res.data.user.profileImage)
       setUsername(res.data.user.username)
+      setLoading(false)
     }).catch(err => {
+      setLoading(false)
       if(err.response){
         setError(err.response.data.message)
       }
     })
   }, [])
+
+  if(loading){
+    return <Loader />
+  }
 
   const onLikeHandler = (postID) => {
     axios.post(`${process.env.REACT_APP_API}/posts/likes/${postID}`, {userID}, {headers: {token: "Bearer "+token}}).then(res => {
@@ -39,9 +48,7 @@ const UserProfile = (props) => {
       setPosts(newPostsArray) 
     }).catch(err => {
       if(err.response){
-        if(err.response){
-          alert(err.response.data.message)
-        }
+        alert(err.response.data.message)  
       }
     })
   }

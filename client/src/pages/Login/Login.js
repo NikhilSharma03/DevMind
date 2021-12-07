@@ -6,13 +6,14 @@ import { Link, Redirect } from "react-router-dom";
 import * as actionCreators from "./../../store/actions/user"
 import { useSelector, useDispatch } from "react-redux"
 import Modal from "./../../components/Modal/Modal"
+import Loader from "./../../components/Loader/Loader"
 
 const Login = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const error = useSelector(state => state.user.logIn_error)
   const token = useSelector(state => state.user.token)
-
+  const loading = useSelector(state => state.user.loading)
 
   const dispatch = useDispatch()
   const LoginHandler = (email, password) => dispatch(actionCreators.LogInHandler(email, password))
@@ -26,9 +27,13 @@ const Login = () => {
   const onClearErrorHandler = () => {
     ClearErrorHandler("login")
   }
-
+  
   if(token){
     return <Redirect to="/my_profile" />
+  }
+
+  if(loading){
+    return <Loader />
   }
 
   return (

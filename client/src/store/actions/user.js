@@ -9,6 +9,8 @@ export const SignUpHandler = (name, email, password, bio, profileImage) => {
         formData.append("password", password)
         formData.append("bio", bio)
         formData.append("profile", profileImage)
+        
+        dispatch({type: actionTypes.START_LOADING})
 
         // Request to API
         axios.post(`${process.env.REACT_APP_API}/users/signup`,formData).then(res => {
@@ -26,8 +28,10 @@ export const SignUpHandler = (name, email, password, bio, profileImage) => {
             }, expiresIn)
 
             dispatch({type: actionTypes.USER_SIGN_UP, token: res.data.token, user: res.data.user})
+            dispatch({type: actionTypes.STOP_LOADING})
         }).catch(err => {
             dispatch({type: actionTypes.USER_SIGN_UP_ERROR, error: err.response.data.message})
+            dispatch({type: actionTypes.STOP_LOADING})
         })
     }
 }
@@ -38,6 +42,8 @@ export const LogInHandler = (email, password) => {
             email,
             password
         }
+
+        dispatch({type: actionTypes.START_LOADING})
         // Request to API
         axios.post(`${process.env.REACT_APP_API}/users/login`, userdata).then(res => {
             localStorage.setItem("token", res.data.token)
@@ -54,8 +60,10 @@ export const LogInHandler = (email, password) => {
             }, expiresIn)
 
             dispatch({type: actionTypes.USER_LOG_IN, token: res.data.token, user: res.data.user})
+            dispatch({type: actionTypes.STOP_LOADING})
         }).catch(err => {
             dispatch({type: actionTypes.USER_LOG_IN_ERROR, error: err.response.data.message})
+            dispatch({type: actionTypes.STOP_LOADING})
         })
     }
 }

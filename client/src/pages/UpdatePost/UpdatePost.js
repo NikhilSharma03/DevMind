@@ -4,18 +4,22 @@ import Form from "../../components/Form/Form";
 import { Redirect } from 'react-router'
 import { useSelector } from "react-redux";
 import axios from "axios";
-
+import Loader from "./../../components/Loader/Loader"
 
 const UpdatePost = (props) => {
   const [content, setContent] = useState("")
   const [imageURL, setImageUrl] = useState("")
   const token = useSelector(state => state.user.token)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    setLoading(true)
     axios.get(process.env.REACT_APP_API + "/posts/"+ props.match.params.id).then(res => {
       setContent(res.data.post.content)
       setImageUrl(res.data.post.imageURL)
+      setLoading(false)
     }).catch(err => {
+      setLoading(false)
       alert(err)
     })
   }, []) 
@@ -26,17 +30,24 @@ const UpdatePost = (props) => {
 
   const onSubmitHandler = (event) => {
     event.preventDefault()
+    setLoading(true)
     const updateData = {
       content, 
       imageURL
     }
     axios.patch(process.env.REACT_APP_API + "/posts/"+ props.match.params.id, updateData, {headers: {token: "Bearer "+token}}).then(res => {
+      setLoading(false)
       props.history.push("/feed")
     }).catch(err => {
+      setLoading(false)
       if(err.response){
         alert(err.response.data.message)
     }
     })
+  }
+
+  if(loading){
+    return <Loader />
   }
 
   return (
