@@ -74,8 +74,6 @@ const Comment = (props) => {
         })
     }
 
-    console.log(userID, postComments)
-
     return (
         <div className="comment__container">
             <div className="comment__main">
