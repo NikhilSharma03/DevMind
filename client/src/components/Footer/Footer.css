@@ -40,6 +40,10 @@
   border-radius: 0;
 }
 
+.footer__ul li:last-child {
+  margin-right: 0rem;
+}
+
 .footer__ul a:hover {
   color: white;
   transform: translateY(-5px);

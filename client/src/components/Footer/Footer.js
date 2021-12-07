@@ -11,7 +11,6 @@ function Footer() {
       <ul className="nav__ul footer__ul">
         <NavItem href="/feed">Feed</NavItem>
         <NavItem href="/create_post">Create</NavItem>
-        <NavItem href="/create_post">About</NavItem>
         <NavItem href="/my_profile">Profile</NavItem>
       </ul>
       <h1 className="footer__credit">
