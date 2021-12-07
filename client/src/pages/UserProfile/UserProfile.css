@@ -179,6 +179,7 @@
     overflow-y: unset;
   }
   .userprofile__container {
+    min-height: 90vh;
     height: fit-content;
   }
 }

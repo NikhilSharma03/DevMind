@@ -76,3 +76,27 @@
   align-items: center;
   justify-content: space-between;
 }
+
+@media (max-width: 575px) {
+  .comment__main {
+    width: 60rem;
+  }
+}
+
+@media (max-width: 475px) {
+  .comment__main {
+    width: 55rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .comment__main {
+    width: 50rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .comment__main {
+    width: 40rem;
+  }
+}
