@@ -63,19 +63,21 @@ First install all the client and server dependency,
 ```
 npm run install-dep
 ```   
+<br>
 
 To start the client dev,
 
 ```
 npm run client:dev
 ```   
+<br>
 
 To start the server dev,
 
 ```
 npm run server:dev
-
 ```   
+<br>
 
 # License
 
