@@ -56,7 +56,26 @@ src="https://img.shields.io/badge/css3%20-%231572B6.svg?&style=for-the-badge&log
 
 <br>
 
-<hr>
+## Setup and Installation
+
+First install all the client and server dependency,
+
+```
+npm run install-dep
+```   
+
+To start the client dev,
+
+```
+npm run client:dev
+```   
+
+To start the server dev,
+
+```
+npm run server:dev
+
+```   
 
 # License
 
