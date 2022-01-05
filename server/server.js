@@ -24,8 +24,10 @@ app.use("/api/posts/comments", commentRoutes)
 app.use("/api/posts/likes", likeRoutes)
 app.use("/api/users", userRoutes)
 
+let mongoconnection = process.env.MONGO_URI || process.env.MONGO_DB_URL
+
 // Db connection
-mongoose.connect(process.env.MONGO_DB_URL).then(() => {
+mongoose.connect(`mongodb://${mongoconnection}:27017/devmind`).then(() => {
     console.log("Connected to Database...")
     // Listen on port 5000
     app.listen(process.env.PORT || 5000, () => {
