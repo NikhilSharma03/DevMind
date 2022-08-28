@@ -58,25 +58,56 @@ src="https://img.shields.io/badge/css3%20-%231572B6.svg?&style=for-the-badge&log
 
 ## Setup and Installation
 
-First install all the client and server dependency,
+First install the server dependency,
 
 ```
-npm run install-dep
+make setup-server-libs
 ```   
+
+Now to run server, first add `Environment Variables` by creating a new `.env` file in `server` folder and add the contents following `.env.example`
+
+Once you have added correct credentials, start the server
+
+```
+make run-server
+```   
+
+To get auto reload, start the dev server,
+
+```
+make run-server-dev
+```   
+
 <br>
 
-To start the client dev,
+Now to run Client UI, First install the client dependency,
 
 ```
-npm run client:dev
+make setup-ui-libs
 ```   
+
+Now to run client, first add `Environment Variables` by creating a new `.env` file in `client` folder and add the contents following `.env.example`
+
+Once you have added correct credentials, start the client
+
+```
+make run-ui
+```   
+
+To build client ui,
+
+```
+make build-ui
+```   
+
 <br>
 
-To start the server dev,
+If you want to use docker,
 
 ```
-npm run server:dev
+docker-compose up --build
 ```   
+
 <br>
 
 # License
