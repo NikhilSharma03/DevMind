@@ -6,12 +6,12 @@ export interface IPost {
   user: Types.ObjectId
   likes: {
     user: Types.ObjectId
-    createdAt: Date
+    createdAt: string
   }[]
   comments: {
     content: string
     user: Types.ObjectId
-    createdAt: Date
+    createdAt: string
   }[]
 }
 
@@ -23,14 +23,14 @@ const postSchema = new Schema<IPost>(
     likes: [
       {
         user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-        createdAt: { type: Date, default: Date.now() },
+        createdAt: { type: String },
       },
     ],
     comments: [
       {
         content: { type: String, required: true },
         user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-        createdAt: { type: Date, default: Date.now() },
+        createdAt: { type: String },
       },
     ],
   },

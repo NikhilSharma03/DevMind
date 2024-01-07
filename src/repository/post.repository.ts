@@ -1,3 +1,4 @@
+import { Types } from 'mongoose'
 import logger from './../logger'
 
 import Post, { IPost } from './../models/post.model'
@@ -58,5 +59,45 @@ export const getPostsByUserID = async (userID: string) => {
     logger.error('failed to get posts by user id')
     logger.error(err.message)
     throw new Error('failed to get posts by user id')
+  }
+}
+
+export const addLikeToPost = async (postID: string, userID: Types.ObjectId) => {
+  try {
+    const post = await getPostByID(postID)
+    if (!post) {
+      throw new Error('post not found by id')
+    }
+
+    post.likes.push({ user: userID, createdAt: new Date().toISOString() })
+    await post.save()
+
+    return post
+  } catch (e) {
+    const err = e as Error
+    logger.error('failed to add like to post')
+    logger.error(err.message)
+    throw new Error('failed to add like to post')
+  }
+}
+
+export const removeLikeFromPost = async (postID: string, userID: string) => {
+  try {
+    const post = await getPostByID(postID)
+    if (!post) {
+      throw new Error('post not found by id')
+    }
+
+    post.likes = post.likes.filter(
+      ({ user }) => user.toString().toLowerCase() !== userID.toLowerCase()
+    )
+    await post.save()
+
+    return post
+  } catch (e) {
+    const err = e as Error
+    logger.error('failed to remove like to post')
+    logger.error(err.message)
+    throw new Error('failed to remove like to post')
   }
 }

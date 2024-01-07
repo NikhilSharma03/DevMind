@@ -121,6 +121,8 @@ export const updatePostByID = async (req: Request, res: Response) => {
         .json({ error: 'user info not found in token' })
     }
 
+    logger.info(`Using ${postID}`)
+
     const data = await postService.updatePostByID(
       postID,
       content,
@@ -152,6 +154,8 @@ export const deletePostByID = async (req: Request, res: Response) => {
         .status(StatusCodes.BAD_REQUEST)
         .json({ error: 'user info not found in token' })
     }
+
+    logger.info(`Using ${postID}`)
 
     const data = await postService.deletePostByID(postID, tokenUserInfo.userID)
 

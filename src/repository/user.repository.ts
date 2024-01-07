@@ -19,7 +19,7 @@ export const createNewUser = async (user: IUser) => {
 
 export const getUserByID = async (userID: string) => {
   try {
-    const user = await User.findById(userID)
+    const user = await User.findById(userID, '-password')
     return user
   } catch (e) {
     const err = e as Error

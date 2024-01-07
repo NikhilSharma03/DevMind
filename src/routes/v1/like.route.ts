@@ -1,10 +1,11 @@
 import { Router } from 'express'
 
-import likesController from './../controllers/likes'
-import JWTAuthMiddleware from './../middlewares/jwt_auth'
+import verifyToken from './../../middlewares/verifyToken.middleware'
+
+import { likePost } from './../../controllers/v1/like.controller'
 
 const likeRouter = Router()
 
-likeRouter.post('/:postID', JWTAuthMiddleware, likesController.postLikeHandler)
+likeRouter.post('/:postID', verifyToken, likePost)
 
 export default likeRouter
