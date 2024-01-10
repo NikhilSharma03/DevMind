@@ -33,10 +33,12 @@ export const getPosts = async () => {
 
 export const getPostByID = async (postID: string) => {
   try {
-    const post = await Post.findById(postID).populate(
-      'user',
-      '_id username avatar'
-    )
+    const post = await Post.findById(postID)
+      .populate('user', '_id username avatar')
+      .populate({
+        path: 'likes.user comments.user',
+        select: '_id username avatar',
+      })
 
     return post
   } catch (e) {
@@ -52,6 +54,10 @@ export const getPostsByUserID = async (userID: string) => {
     const posts = await Post.find({ user: userID })
       .sort({ createdAt: -1 })
       .populate('user', '_id username avatar')
+      .populate({
+        path: 'likes.user comments.user',
+        select: '_id username avatar',
+      })
 
     return posts
   } catch (e) {
