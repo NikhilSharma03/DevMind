@@ -101,3 +101,30 @@ export const removeLikeFromPost = async (postID: string, userID: string) => {
     throw new Error('failed to remove like to post')
   }
 }
+
+export const addCommentToPost = async (
+  content: string,
+  postID: string,
+  userID: Types.ObjectId
+) => {
+  try {
+    const post = await getPostByID(postID)
+    if (!post) {
+      throw new Error('post not found by id')
+    }
+
+    post.comments.push({
+      content,
+      user: userID,
+      createdAt: new Date().toISOString(),
+    })
+    await post.save()
+
+    return post
+  } catch (e) {
+    const err = e as Error
+    logger.error('failed to add like to post')
+    logger.error(err.message)
+    throw new Error('failed to add like to post')
+  }
+}

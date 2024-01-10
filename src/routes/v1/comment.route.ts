@@ -1,22 +1,19 @@
 import { Router } from 'express'
 
-import commentsController from './../controllers/comments'
-import JWTAuthMiddleware from './../middlewares/jwt_auth'
+import verifyToken from './../../middlewares/verifyToken.middleware'
+import { validate } from './../../middlewares/validate.middleware'
+
+import { createCommentRequestSchema } from './../../validations/comment.validation'
+
+import { createComment } from './../../controllers/v1/comment.controller'
 
 const commentRouter = Router()
 
-commentRouter.get('/:postID', commentsController.getCommentsByPostID)
-
 commentRouter.post(
   '/:postID',
-  JWTAuthMiddleware,
-  commentsController.postCommentByPostID
-)
-
-commentRouter.delete(
-  '/:postID/:commentID',
-  JWTAuthMiddleware,
-  commentsController.deleteCommentByCommentID
+  verifyToken,
+  validate(createCommentRequestSchema),
+  createComment
 )
 
 export default commentRouter
