@@ -1,0 +1,33 @@
+ARG BASE_IMAGE_TAG=16-bullseye-slim
+
+FROM node:${BASE_IMAGE_TAG} AS builder
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm ci
+
+COPY . .
+
+RUN npm run build
+
+# production stage
+
+FROM node:${BASE_IMAGE_TAG}
+
+WORKDIR /usr/src/app
+
+ENV NODE_ENV=production
+
+COPY package*.json ./
+
+RUN npm ci --omit=dev
+
+COPY --from=builder /usr/src/app/dist /usr/src/app/dist
+
+USER node
+
+EXPOSE 5000
+
+CMD [ "npm", "start" ]

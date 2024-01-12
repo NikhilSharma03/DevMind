@@ -1,0 +1,58 @@
+version: '3.9'
+
+services:
+  devmind_api:
+    container_name: devmind_api
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+
+    volumes:
+      - type: bind
+        source: .
+        target: /usr/src/app/
+
+      - type: volume
+        target: /usr/src/app/node_modules
+
+    env_file:
+      - '.env'
+
+    ports:
+      - 5000:5000
+
+    depends_on:
+      - mongo
+
+    links:
+      - mongo
+
+    networks:
+      - backend
+
+    restart: unless-stopped
+
+  mongo:
+    container_name: mongodb
+    image: mongo
+
+    volumes:
+      - mongo_data:/data/db
+
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: 'root'
+      MONGO_INITDB_ROOT_PASSWORD: 'foobar'
+
+    ports:
+      - 27017:27017
+
+    networks:
+      - backend
+
+    restart: unless-stopped
+
+volumes:
+  mongo_data:
+
+networks:
+  backend:

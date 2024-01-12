@@ -1,0 +1,13 @@
+ARG BASE_IMAGE_TAG=16-bullseye-slim
+
+FROM node:${BASE_IMAGE_TAG}
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+CMD ["npm", "run", "dev"]

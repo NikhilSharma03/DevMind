@@ -1,0 +1,22 @@
+area/ci:
+  - '.github/**/*'
+
+area/docs:
+  - 'assets/**/*'
+  - 'README.md'
+
+area/server:
+  - 'src/**/*'
+  - '.env.example'
+  - '.eslintrc'
+  - '.prettierrc'
+  - 'Makefile'
+  - 'Dockerfile.dev'
+  - 'Dockerfile.prod'
+  - 'docker-compose-dev.yml'
+  - 'package.json'
+  - 'package-lock.json'
+  - 'tsconfig.json'
+
+area/ui:
+  - 'ui/**/*'

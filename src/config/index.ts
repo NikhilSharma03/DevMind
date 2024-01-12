@@ -2,7 +2,7 @@ import z from 'zod'
 
 const configSchema = z.object({
   NODE_ENV: z.enum(['development', 'production']).default('development'),
-  PORT: z.number().default(5000),
+  PORT: z.string().default('5000'),
   MONGO_URI: z.string().trim().min(1),
   MONGO_DB_NAME: z.string().trim().min(1),
   JWT_SECRET_KEY: z.string().trim().min(1),
