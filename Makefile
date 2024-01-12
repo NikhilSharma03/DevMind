@@ -50,5 +50,6 @@ setup-ui-libs:
 run-ui-dev:
 	cd ui; npm start; cd ..
 
+.PHONY: build-ui
 build-ui:
 	cd ui; npm run build; cd ..
