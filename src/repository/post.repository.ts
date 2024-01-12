@@ -95,7 +95,7 @@ export const removeLikeFromPost = async (postID: string, userID: string) => {
     }
 
     post.likes = post.likes.filter(
-      ({ user }) => user.toString().toLowerCase() !== userID.toLowerCase()
+      ({ user }) => user._id.toString().toLowerCase() !== userID.toLowerCase()
     )
     await post.save()
 

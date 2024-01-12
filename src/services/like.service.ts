@@ -15,9 +15,9 @@ export const likePost = async (postID: string, userID: string) => {
       throw new Error('user not found by provided id')
     }
 
-    const alreadyLiked = post.likes.some(
-      ({ user }) => user.toString().toLowerCase() === userID.toLowerCase()
-    )
+    const alreadyLiked = post.likes.some(({ user }) => {
+      return user._id.toString().toLowerCase() === userID.toLowerCase()
+    })
 
     if (alreadyLiked) {
       post = await postRepository.removeLikeFromPost(postID, userID)
