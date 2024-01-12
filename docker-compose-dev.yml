@@ -1,8 +1,8 @@
 version: '3.9'
 
 services:
-  devmind-server:
-    container_name: devmind-server
+  devmind_api:
+    container_name: devmind_api
     build:
       context: .
       dockerfile: Dockerfile.dev
