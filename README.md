@@ -1,16 +1,16 @@
 # DevMind
 
-<div align="center">  
+<div align="center">
 <br>
 
 <img width=100% src="./assets/docs.png"></p>
 
 </div>
 
-<div align="center">  
+<div align="center">
 <br>
- 
-[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=95)](https://github.com/NikhilSharma03/DevMind) 
+
+[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=95)](https://github.com/NikhilSharma03/DevMind)
 [![Build by Nikhil](https://img.shields.io/badge/Built%20by-Nikhil-Green)](https://github.com/NikhilSharma03/DevMind)
 
 </div>
@@ -27,8 +27,8 @@
 
 <div align="center">
 
-<img alt="TypeScript" src="https://img.shields.io/badge/typescript%20-%23323330.svg?&style=for-the-badge&logo=typescript"/> <img alt="JavaScript" src="https://img.shields.io/badge/javascript%20-%23323330.svg?&style=for-the-badge&logo=javascript&logoColor=%23F7DF1E"/> <img alt="HTML5" 
-src="https://img.shields.io/badge/html5%20-%23E34F26.svg?&style=for-the-badge&logo=html5&logoColor=white"/> <img alt="CSS3" 
+<img alt="TypeScript" src="https://img.shields.io/badge/typescript%20-%23323330.svg?&style=for-the-badge&logo=typescript"/> <img alt="JavaScript" src="https://img.shields.io/badge/javascript%20-%23323330.svg?&style=for-the-badge&logo=javascript&logoColor=%23F7DF1E"/> <img alt="HTML5"
+src="https://img.shields.io/badge/html5%20-%23E34F26.svg?&style=for-the-badge&logo=html5&logoColor=white"/> <img alt="CSS3"
 src="https://img.shields.io/badge/css3%20-%231572B6.svg?&style=for-the-badge&logo=css3&logoColor=white"/>
 
 </div>
@@ -72,7 +72,7 @@ Once you have added correct credentials, start the server
 make run-server
 ```
 
-To get auto reload, start the dev server,
+To get auto reload, start the dev server
 
 ```
 make run-server-dev
@@ -128,7 +128,7 @@ make build-ui
 
 # License
 
-<div align="center">  
+<div align="center">
 <br>
 
 <img width=35% src="https://media0.giphy.com/media/3ornjXbo3cjqh2BIyY/200.gif"></p>
