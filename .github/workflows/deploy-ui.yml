@@ -19,7 +19,7 @@ jobs:
       
       - name: Install and Build
         run: |
-          npm ci
+          npm install
           npm run build
         env:
           REACT_APP_API_ENDPOINT: ${{ secrets.DEVMIND_API_ENDPOINT }}
