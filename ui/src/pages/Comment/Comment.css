@@ -61,6 +61,8 @@
   margin-bottom: 3rem;
   padding: 1.5rem;
   background: rgb(241, 241, 241);
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 .comment p {

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
 
 * {
   margin: 0;
@@ -11,10 +11,9 @@ html {
 }
 
 body {
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
 }
 
-/* Media Queries */
 @media (min-width: 1600px) {
   html {
     font-size: 60%;

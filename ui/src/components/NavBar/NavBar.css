@@ -81,11 +81,11 @@
   transition-duration: 0.25s;
 }
 .menu__btn > span::before {
-  content: "";
+  content: '';
   top: -8px;
 }
 .menu__btn > span::after {
-  content: "";
+  content: '';
   top: 8px;
 }
 

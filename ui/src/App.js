@@ -1,47 +1,28 @@
-import React, { useEffect } from "react";
-import "./App.css";
+import React, { useEffect } from 'react'
+import { HashRouter } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
-import Layout from "./components/Layout/Layout";
-import {
-  Home,
-  Login,
-  SignUp,
-  AddPost,
-  UpdatePost,
-  UserProfile,
-  Feed,
-  Comment,
-  MyProfile,
-  LogOut
-} from "./pages/PageSrc";
-import { Switch, Route } from "react-router-dom";
-import * as actionCreators from "./store/actions/user"
-import { useDispatch } from "react-redux";
+import Layout from './components/Layout/Layout'
+
+import AppRouter from './setup/routes-manager'
+
+import { AutoAuthHandler } from './redux/actions/user'
 
 function App() {
   const dispatch = useDispatch()
-  const autoAuthHandler = () => dispatch(actionCreators.AutoAuthHandler())
+  const onAutoAuthHandler = () => dispatch(AutoAuthHandler())
 
   useEffect(() => {
-    autoAuthHandler()
+    onAutoAuthHandler()
   }, [])
 
   return (
-    <Layout>
-      <Switch>
-        <Route exact path="/comment/:id" component={Comment} />
-        <Route exact path="/feed" component={Feed} />
-        <Route exact path="/my_profile" component={MyProfile} />
-        <Route exact path="/profile/:id" component={UserProfile} />
-        <Route exact path="/update_post/:id" component={UpdatePost} />
-        <Route exact path="/create_post" component={AddPost} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/logout" component={LogOut} />
-        <Route exact path="/signup" component={SignUp} />
-        <Route exact path="/" component={Home} />
-      </Switch>
-    </Layout>
-  );
+    <HashRouter>
+      <Layout>
+        <AppRouter />
+      </Layout>
+    </HashRouter>
+  )
 }
 
-export default App;
+export default App

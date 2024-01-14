@@ -1,51 +1,57 @@
-import React, { useState } from "react";
-import "./SignUp.css";
-import Form from "../../components/Form/Form";
-import InputField from "../../components/InputField/InputField";
-import { Link, Redirect } from "react-router-dom";
-import * as actionCreators from "./../../store/actions/user"
-import { useSelector, useDispatch } from "react-redux"
-import Modal from "./../../components/Modal/Modal"
-import Loader from "./../../components/Loader/Loader"
+import React, { useState } from 'react'
+import { Link, Redirect } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import './SignUp.css'
+
+import Form from '../../components/Form/Form'
+import InputField from '../../components/InputField/InputField'
+import Modal from './../../components/Modal/Modal'
+import Loader from './../../components/Loader/Loader'
+
+import { SignUpHandler, ClearError } from './../../redux/actions/user'
 
 const SignUp = () => {
-  const [name, setName] = useState("")
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [bio, setBio] = useState("")
-  const [profileImage, setProfileImage] = useState(null)
-  const error = useSelector(state => state.user.signUp_error)
-  const token = useSelector(state => state.user.token)
-  const loading = useSelector(state => state.user.loading)
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [bio, setBio] = useState('')
+  const [avatar, setAvatar] = useState(null)
+
+  const token = useSelector((state) => state.user.token)
+  const loading = useSelector((state) => state.user.loading)
+  const error = useSelector((state) => state.user.signUp_error)
 
   const dispatch = useDispatch()
-  const SignUpHandler = (name, email, password, bio, profileImage) => dispatch(actionCreators.SignUpHandler(name, email, password, bio, profileImage))
-  const ClearErrorHandler = (type) => dispatch(actionCreators.ClearError(type))
+  const onSignUpHandler = (name, email, password, bio, avatar) =>
+    dispatch(SignUpHandler(name, email, password, bio, avatar))
+  const onClearErrorHandler = (type) => dispatch(ClearError(type))
 
   const onSubmitHandler = (event) => {
     event.preventDefault()
-    SignUpHandler(name, email, password, bio, profileImage)
+    onSignUpHandler(name, email, password, bio, avatar)
   }
 
-  const onFileChange = event => {
-    setProfileImage(event.target.files[0]);
-  };
-
-  const onClearErrorHandler = () => {
-    ClearErrorHandler("signup")
+  const onFileChange = (event) => {
+    setAvatar(event.target.files[0])
   }
 
-  if(token){
+  if (token) {
     return <Redirect to="/my_profile" />
   }
 
-  if(loading){
+  if (loading) {
     return <Loader />
   }
 
   return (
     <div className="signup__container">
-      {error && <Modal showModal={error} message={error} closeModal={onClearErrorHandler}/>}
+      {error && (
+        <Modal
+          showModal={error}
+          message={error}
+          closeModal={() => onClearErrorHandler('signup')}
+        />
+      )}
       <Form onSubmit={onSubmitHandler}>
         <div className="form__banner">
           <h1>SignUp</h1>
@@ -84,13 +90,13 @@ const SignUp = () => {
             onChange={(event) => setBio(event.target.value)}
           />
           <div className="signup--image__picker">
-            <p>{!profileImage ? "Not Uploaded" : "Uploaded ✓"}</p>
+            <p>{!avatar ? 'Not Uploaded' : 'Uploaded ✓'}</p>
             <label htmlFor="sign__image--picker">Upload Profile Image</label>
             <input
               type="file"
               onChange={onFileChange}
               id="sign__image--picker"
-              style={{ display: "none" }}
+              style={{ display: 'none' }}
               accept=".jpg,.png,.jpeg"
             />
           </div>
@@ -104,7 +110,7 @@ const SignUp = () => {
         </div>
       </Form>
     </div>
-  );
-};
+  )
+}
 
-export default SignUp;
+export default SignUp
