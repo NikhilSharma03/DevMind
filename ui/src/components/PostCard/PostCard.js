@@ -1,23 +1,25 @@
-import React, { useState } from "react";
-import "./PostCard.css";
-import Src from "./../../shared/ImageSource";
-import SvgSrc from "./../../shared/SvgSrc";
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import axios from 'axios'
+import './PostCard.css'
+
 import DeleteModal from './../Modal/DeleteModal'
-import { Link } from "react-router-dom";
-import axios from "axios";
-import { useSelector} from "react-redux"
 
-const PostCard = ({postDetails, creator, isAuthor, likeHandler,hideLikesComments}) => {
+import SvgSrc from './../../shared/SvgSrc'
+
+const PostCard = ({ isAuthor, likeHandler, data, hideLikesComments }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false)
-  const token = useSelector(state => state.user.token)
-  const id = useSelector(state => state.user.id)
 
-  const scrollToTop = () =>{
+  const token = useSelector((state) => state.user.token)
+  const userID = useSelector((state) => state.user.id)
+
+  const scrollToTop = () => {
     window.scrollTo({
-      top: 0, 
-      behavior: 'smooth'
-    });
-  };
+      top: 0,
+      behavior: 'smooth',
+    })
+  }
 
   const onDeleteHandler = () => {
     scrollToTop()
@@ -25,61 +27,74 @@ const PostCard = ({postDetails, creator, isAuthor, likeHandler,hideLikesComments
   }
 
   const deletePostHandler = () => {
-    axios.delete(process.env.REACT_APP_API+"/posts/"+postDetails._id, { headers: {token: "Bearer "+token}}).then(res => {
-      window.location.reload(false);
-    }).catch(err => {
-      alert(err)
-    })
+    axios
+      .delete(process.env.REACT_APP_API_ENDPOINT + '/api/v1/post/' + data._id, {
+        headers: { authorization: 'Bearer ' + token },
+      })
+      .then((_) => {
+        window.location.reload(false)
+      })
+      .catch((err) => {
+        alert(err.response.data.error)
+      })
+
     setShowDeleteModal(false)
   }
 
   return (
     <div className="postcard__container">
-      <DeleteModal showModal={showDeleteModal} onDelete={deletePostHandler} onClose={() => setShowDeleteModal(false)}/>
+      <DeleteModal
+        showModal={showDeleteModal}
+        onDelete={deletePostHandler}
+        onClose={() => setShowDeleteModal(false)}
+      />
       <div className="postcard__container--topbar">
         <div className="postcard__container--username">
-          <figcaption className="postcard__username--image">
-            <img src={Src.sdProfile} alt="Post Image" />
-          </figcaption>
-          <h1>{creator}</h1>
+          <Link to={`/profile/${data.user._id}`}>
+            <figcaption className="postcard__username--image">
+              <img src={data.user.avatar} alt="Post Image" />
+            </figcaption>
+            <h1>{data.user.username}</h1>
+          </Link>
         </div>
-        {
-          isAuthor && (
-           <div className="postcard__container--topbar__delete" >
-            <Link to={`/update_post/${postDetails._id}`}>
-              <SvgSrc.Edit/>
+        {isAuthor && (
+          <div className="postcard__container--topbar__delete">
+            <Link to={`/update_post/${data._id}`}>
+              <SvgSrc.Edit />
             </Link>
-            <div onClick={onDeleteHandler} style={{cursor: "pointer"}}>
-              <SvgSrc.Delete/>
+            <div onClick={onDeleteHandler} style={{ cursor: 'pointer' }}>
+              <SvgSrc.Delete />
             </div>
-           </div>
+          </div>
         )}
       </div>
       <div className="postcard__container--content">
-        <p className="postcard__content--para">
-          {postDetails.content}
-        </p>
-        {postDetails.imageURL &&
-        <figcaption className="postcard__content--image">
-           <img src={process.env.REACT_APP_IMAGE_PATH + postDetails.imageURL} alt="Post Image" />
-        </figcaption>}
+        <p className="postcard__content--para">{data.content}</p>
+        {data.image && (
+          <figcaption className="postcard__content--image">
+            <img src={data.image} alt="Post Image" />
+          </figcaption>
+        )}
       </div>
-      {!hideLikesComments &&
+      {!hideLikesComments && (
         <div className="postcard__container--actionbtns">
           <div className="postcard__actionbtns--main">
-            <SvgSrc.Heart isLiked={postDetails.likes.includes(id)} onClick={likeHandler} />
-            <span>{postDetails.likes.length}</span>
+            <SvgSrc.Heart
+              isLiked={data.likes.some((user) => user._id === userID)}
+              onClick={likeHandler}
+            />
+            <span>{data.likes.length}</span>
           </div>
           <div className="postcard__actionbtns--main">
-            <Link to={"/comment/" + postDetails._id}>
+            <Link to={'/comment/' + data._id}>
               <SvgSrc.Comment />
             </Link>
-            <span>{postDetails.comments.length}</span>
+            <span>{data.comments.length}</span>
           </div>
         </div>
-      }
+      )}
     </div>
-  );
-};
+  )
+}
 
-export default PostCard;
+export default PostCard

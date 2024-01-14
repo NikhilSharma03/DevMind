@@ -1,20 +1,19 @@
-import React, { useEffect } from "react";
-import { Redirect } from "react-router-dom";
-import * as actionCreators from "./../../store/actions/user"
-import { useDispatch } from "react-redux"
+import React, { useEffect } from 'react'
+import { Redirect } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+
+import { LogOutHandler } from './../../redux/actions/user'
 
 const LogOut = () => {
   const dispatch = useDispatch()
 
-  const onLogOutHandler = () => dispatch(actionCreators.LogOutHandler())
-  
+  const onLogOutHandler = () => dispatch(LogOutHandler())
+
   useEffect(() => {
     onLogOutHandler()
   }, [])
 
-  return (
-    <Redirect to="login" />
-  );
-};
+  return <Redirect to="/login" />
+}
 
-export default LogOut;
+export default LogOut

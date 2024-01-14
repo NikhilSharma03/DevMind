@@ -1,112 +1,105 @@
 import React, { useEffect, useState } from 'react'
-import "./Comment.css"
-import PostCard from './../../components/PostCard/PostCard'
-import SvgSrc  from '../../shared/SvgSrc'
 import { Redirect } from 'react-router'
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux'
 import axios from 'axios'
-import Loader from "./../../components/Loader/Loader"
+import './Comment.css'
+
+import PostCard from './../../components/PostCard/PostCard'
+import Loader from './../../components/Loader/Loader'
 
 const Comment = (props) => {
-    const token = useSelector(state => state.user.token)
-    const userID = useSelector(state => state.user.id)
-    const [post, setPost] = useState(null)
-    const [postComments, setPostComments] = useState([])
-    const [comment, setComment] = useState("")
-    const postID = props.match.params.id
-    const [loading, setLoading] = useState(false)
+  const [post, setPost] = useState(null)
+  const [comments, setComments] = useState([])
+  console.log('🚀 ~ comments:', comments)
+  const [content, setContent] = useState('')
+  const [loading, setLoading] = useState(false)
 
-    useEffect(() => {
-        setLoading(true)
-        axios.get(process.env.REACT_APP_API + "/posts/"+postID).then(res => {
-            setPost(res.data.post)
-            setLoading(false)
-        }).catch(err => {
-            setLoading(false)
-            if(err.response){
-                alert(err.response.data.message)
-            }
+  const postID = props.match.params.id
 
-        })
-        axios.get(process.env.REACT_APP_API + "/posts/comments/"+postID).then(res => {
-            const comments = [...res.data.comments.comments].reverse()
-            setLoading(false)
-            setPostComments(comments)
-        }).catch(err => {
-            setLoading(false)
-            if(err.response){
-                alert(err.response.data.message)
-            }
-        })
-    }, [])
+  const token = useSelector((state) => state.user.token)
+  const userID = useSelector((state) => state.user.id)
 
-    if(loading){
-      return <Loader />
+  const onCommentHandler = () => {
+    if (content.length === 0) {
+      return alert('Enter comment...')
     }
+    setLoading(true)
 
-    const onCommentHandler = () => {
-        if(comment.length === 0){
-            return alert("Enter comment...")
-        }
-        axios.post(process.env.REACT_APP_API + "/posts/comments/"+postID, {content: comment, creator: userID}, {headers: {token: "Bearer "+token}}).then(res => {
-            const comments = [...res.data.post.comments].reverse()
-            setPostComments(comments)
-            setComment("")
-        }).catch(err => {
-            if(err.response){
-                alert(err.response.data.message)
-            }
-        })
-    }
+    axios
+      .post(
+        process.env.REACT_APP_API_ENDPOINT + '/api/v1/comment/' + postID,
+        { content },
+        { headers: { authorization: 'Bearer ' + token } }
+      )
+      .then((_) => {
+        setLoading(false)
+        props.history.push('/feed')
+      })
+      .catch((err) => {
+        alert(err.response.data.error)
+        setLoading(false)
+      })
+  }
 
-    if(!token) {
-      return <Redirect to="/login" />
-    }
+  useEffect(() => {
+    setLoading(true)
 
-    const onCommentDeleteHandler = (commentID) => {
-        axios.delete(process.env.REACT_APP_API + "/posts/comments/"+postID+"/"+commentID, {headers: {token: "Bearer "+token}}).then(res => {
-            const comments = [...res.data.comments].reverse()
-            setPostComments(comments)
-        }).catch(err => {
-            if(err.response){
-                alert(err.response.data.message)
-            }
-        })
-    }
+    axios
+      .get(process.env.REACT_APP_API_ENDPOINT + '/api/v1/post/' + postID)
+      .then((res) => {
+        setPost(res.data.data)
+        setComments(res.data.data.comments)
+        setLoading(false)
+      })
+      .catch((err) => {
+        alert(err.response.data.error)
+        setLoading(false)
+      })
+  }, [])
 
-    return (
-        <div className="comment__container">
-            <div className="comment__main">
-                {post && <PostCard hideLikesComments={true} postDetails={post} isAuthor={post.creator._id === userID} creator={post.creator.username}/>}
-                <div className="comment__box">
-                    {/* Comment Field */}
-                    <div className="comment__field">
-                        <div>
-                            <input placeholder="Enter comment.." value={comment} onChange = {e => setComment(e.target.value)} />
-                        </div>
-                        <button onClick={onCommentHandler}>Comment</button>
-                    </div>
-                    {/* Comment List */}
-                    <div className="comment__list">
-                        {postComments.map(item => (
-                            <div className="comment" key={item._id}>
-                                <div className="comment__header">
-                                    <h1>{item.creator.username}</h1>
-                                    {
-                                        userID === item.creator._id && (
-                                        <div onClick={onCommentDeleteHandler.bind(this, item._id)} style={{cursor:"pointer"}}>
-                                            <SvgSrc.Delete fill="#777" />
-                                        </div>
-                                    )}
-                                </div>
-                                <p>{item.content}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
+  if (loading) {
+    return <Loader />
+  }
+
+  if (!token) {
+    return <Redirect to="/login" />
+  }
+
+  return (
+    <div className="comment__container">
+      <div className="comment__main">
+        {post && (
+          <PostCard
+            isAuthor={post.user._id === userID}
+            data={post}
+            hideLikesComments={true}
+          />
+        )}
+        <div className="comment__box">
+          <div className="comment__field">
+            <div>
+              <input
+                placeholder="Enter comment.."
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+              />
             </div>
+            <button onClick={onCommentHandler}>Comment</button>
+          </div>
+          <div className="comment__list">
+            {comments.map((comment) => (
+              <div className="comment" key={comment._id}>
+                <div className="comment__header">
+                  <h1>{comment.user.username}</h1>
+                </div>
+                <p>{comment.content}</p>
+              </div>
+            ))}
+          </div>
         </div>
-    )
+      </div>
+    </div>
+  )
 }
 
 export default Comment

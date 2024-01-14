@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import "./NavBar.css";
-import { Link } from "react-router-dom";
-import NavList from "./../NavList/NavList";
+import React from 'react'
+import { Link } from 'react-router-dom'
+import './NavBar.css'
+
+import NavList from './../NavList/NavList'
 
 const NavBar = (props) => {
   return (
@@ -18,14 +19,14 @@ const NavBar = (props) => {
           htmlFor="menu__toggle"
           onClick={props.toggleSD}
         >
-          <span className={props.sd ? "active" : ""}></span>
+          <span className={props.sd ? 'active' : ''}></span>
         </label>
       </div>
       <nav className="navbar__nav">
         <NavList />
       </nav>
     </header>
-  );
-};
+  )
+}
 
-export default NavBar;
+export default NavBar

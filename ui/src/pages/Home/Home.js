@@ -1,34 +1,32 @@
-import React from "react";
-import "./Home.css";
-import { Link } from "react-router-dom";
-import ImgSrc from "./../../shared/ImageSource";
-import FeatureCard from "./../../components/FeatureCard/FeatureCard";
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import './Home.css'
+
+import FeatureCard from './../../components/FeatureCard/FeatureCard'
+
+import ImgSrc from './../../shared/ImageSource'
 
 const Home = () => {
+  const token = useSelector((state) => state.user.token)
+
   return (
     <section className="home__main">
-      {/* <--Main Section--> */}
-
       <div className="home__head">
         <div className="home__heading">
-          <h1>
-            Share your ideas and thoughts with developers all over the world
-          </h1>
+          <h1>Share your ideas with developers all over the world</h1>
           <p>
-            Connect with developers and post your thoughts and images by posting
-            online on this site
+            Connect with other developers and share your ideas and code snippets
+            by posting on this app
           </p>
         </div>
         <label className="home__explore--btn">
-          <Link to="/feed">Explore The Feed</Link>
+          <Link to={token ? '/feed' : '/login'}>Explore The Feed</Link>
         </label>
         <figcaption className="home__image--container">
           <img src={ImgSrc.homeBanner} alt="banner" />
         </figcaption>
       </div>
-
-      {/* <--Features Section--> */}
-
       <div className="home__features">
         <h1 className="home__features--head">FEATURES</h1>
         <div className="home__feat--card__container">
@@ -51,7 +49,7 @@ const Home = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

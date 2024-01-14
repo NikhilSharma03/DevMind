@@ -1,44 +1,50 @@
-import React, {useState} from "react";
-import "./Login.css";
-import Form from "./../../components/Form/Form";
-import InputField from "./../../components/InputField/InputField";
-import { Link, Redirect } from "react-router-dom";
-import * as actionCreators from "./../../store/actions/user"
-import { useSelector, useDispatch } from "react-redux"
-import Modal from "./../../components/Modal/Modal"
-import Loader from "./../../components/Loader/Loader"
+import React, { useState } from 'react'
+import { Link, Redirect } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import './Login.css'
+
+import Form from './../../components/Form/Form'
+import InputField from './../../components/InputField/InputField'
+import Modal from './../../components/Modal/Modal'
+import Loader from './../../components/Loader/Loader'
+
+import { LogInHandler, ClearError } from './../../redux/actions/user'
 
 const Login = () => {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const error = useSelector(state => state.user.logIn_error)
-  const token = useSelector(state => state.user.token)
-  const loading = useSelector(state => state.user.loading)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const token = useSelector((state) => state.user.token)
+  const loading = useSelector((state) => state.user.loading)
+  const error = useSelector((state) => state.user.logIn_error)
 
   const dispatch = useDispatch()
-  const LoginHandler = (email, password) => dispatch(actionCreators.LogInHandler(email, password))
-  const ClearErrorHandler = (type) => dispatch(actionCreators.ClearError(type))
+  const onLoginHandler = (email, password) =>
+    dispatch(LogInHandler(email, password))
+  const onClearErrorHandler = (type) => dispatch(ClearError(type))
 
   const onSubmitHandler = (event) => {
     event.preventDefault()
-    LoginHandler(email, password)
+    onLoginHandler(email, password)
   }
 
-  const onClearErrorHandler = () => {
-    ClearErrorHandler("login")
-  }
-  
-  if(token){
+  if (token) {
     return <Redirect to="/my_profile" />
   }
 
-  if(loading){
+  if (loading) {
     return <Loader />
   }
 
   return (
     <div className="login__container">
-      {error && <Modal showModal={error} message={error} closeModal={onClearErrorHandler}/>}
+      {error && (
+        <Modal
+          showModal={error}
+          message={error}
+          closeModal={() => onClearErrorHandler('login')}
+        />
+      )}
       <Form onSubmit={onSubmitHandler}>
         <div className="form__banner">
           <h1>Login</h1>
@@ -70,7 +76,7 @@ const Login = () => {
         </div>
       </Form>
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

@@ -1,67 +1,80 @@
-import React, {useState} from "react";
-import "./AddPost.css";
-import Form from "../../components/Form/Form";
-import axios from "axios"
-import { useSelector } from "react-redux";
+import React, { useState } from 'react'
 import { Redirect } from 'react-router'
-import Loader from "./../../components/Loader/Loader"
+import { useSelector } from 'react-redux'
+import axios from 'axios'
+import './AddPost.css'
+
+import Form from '../../components/Form/Form'
+import Loader from './../../components/Loader/Loader'
 
 const AddPost = (props) => {
-  const token = useSelector(state => state.user.token)
-  const userID = useSelector(state => state.user.id)
-  const [postContent, setPostContent] = useState("")
-  const [postImage, setPostImage] = useState(null)
+  const [content, setContent] = useState('')
+  const [image, setImage] = useState(null)
   const [loading, setLoading] = useState(false)
 
-  const onFileChange = event => {
-    setPostImage(event.target.files[0]);
-  };
+  const token = useSelector((state) => state.user.token)
+
+  const onFileChange = (event) => {
+    setImage(event.target.files[0])
+  }
 
   const onSubmitHandler = (event) => {
     event.preventDefault()
+
     setLoading(true)
+
     const formData = new FormData()
-    formData.append("content", postContent)
-    formData.append("creator", userID)
-    formData.append("image", postImage)
-    // Make Request to API
-    axios.post(`${process.env.REACT_APP_API}/posts`, formData, { headers: { token: "Bearer "+ token }}).then(res => {
-      setLoading(false)
-      props.history.push("/feed")
-    }).catch(err => {
-      setLoading(false)
-      if(err.response){
-        alert(err.response.data.message)
-      }
-    })
+    formData.append('content', content)
+    formData.append('image', image)
+
+    axios
+      .post(`${process.env.REACT_APP_API_ENDPOINT}/api/v1/post`, formData, {
+        headers: { authorization: 'Bearer ' + token },
+      })
+      .then((_) => {
+        setLoading(false)
+        props.history.push('/feed')
+      })
+      .catch((err) => {
+        const error = Array.isArray(err.response.data.error)
+          ? err.response.data.error.map(({ message }) => message).join(' ')
+          : err.response.data.error
+
+        alert(error)
+        setLoading(false)
+      })
   }
 
-  if(!token) {
+  if (!token) {
     return <Redirect to="/login" />
   }
 
-  if(loading){
+  if (loading) {
     return <Loader />
   }
 
   return (
     <div className="addpost__container">
-      <Form style={{ width: "55rem" }} onSubmit={onSubmitHandler}>
+      <Form style={{ width: '55rem' }} onSubmit={onSubmitHandler}>
         <div className="form__banner">
           <h1>Add Post</h1>
         </div>
         <div className="form__body">
           <div className="addpost__textarea">
-            <textarea onChange={(event) => setPostContent(event.target.value)} value={postContent} placeholder="Type your post"></textarea>
+            <textarea
+              onChange={(event) => setContent(event.target.value)}
+              value={content}
+              placeholder="Type your post"
+            ></textarea>
           </div>
           <div className="addpost--image__picker">
-            <p>{!postImage ? "Not Uploaded" : "Uploaded ✓"}</p>
+            <p>{!image ? 'Not Uploaded' : 'Uploaded ✓'}</p>
             <label htmlFor="addpost__image--picker">Upload Image</label>
             <input
               type="file"
               onChange={onFileChange}
               id="addpost__image--picker"
-              style={{ display: "none" }}
+              style={{ display: 'none' }}
               accept=".jpg,.png,.jpeg"
             />
           </div>
@@ -71,7 +84,7 @@ const AddPost = (props) => {
         </div>
       </Form>
     </div>
-  );
-};
+  )
+}
 
-export default AddPost;
+export default AddPost
